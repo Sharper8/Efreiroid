@@ -1,0 +1,18 @@
+:hardbreaks:
+:experimental:
+
+= Commandes git importantes
+
+https://git-scm.com/docs
+
+Repository (repo) : ensemble de fichiers versionnés, en local ou sur un seveur
+
+
+|===
+|Commmande git | Dans vscode | Explication
+
+|git clone [url-repo-groupe.git] | kbd:[Ctrl+Shift+p] (ouvre la Command Palette) `Git: clone` | Clone localement le repo
+
+|git fetch --all | Automatique (peut être forcé : Source Control (sur la gauche) -> More (...) -> Fetch | Liste tout ce qui est nouveau sur le serveur
+|git merge --ff-only origin main | Source Control (sur la gauche) ->  Sync Changes (gros bouton bleu quand disponible) | Met à jour la branche "main" par rapport à celle du serveur
+|=== 

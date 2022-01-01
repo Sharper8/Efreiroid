@@ -1,0 +1,87 @@
+:hardbreaks:
+:experimental:
+= Cours de C/C++
+
+== Objectif du cours
+=== Objectifs principaux
+Rappelles de C
+C++ 
+Programmation orientée objet
+
+=== Objectifs secondaires
+Mettre en place un environnement de dev 
+Utiliser Git 
+Les étapes de compilation 
+Objectifs RS : Ouverture sur la sécurité 
+
+== Découpage des séances
+
+. Rappels de C - Fonctions et programmation modulaire, Gestion dynamique de la mémoire et pointeurs, Types structurés
+. Prise en main de l’environnement : Chaine de compilation, Différences C/C++, Entrées/sorties 
+. Classes, Attributs, Méthodes 
+. Gestion de la mémoire et références, Constructeur/destructeur 
+. Introduction à STL et aux Design Patterns 
+. Classes, héritage, surcharge 
+. Polymorphisme, visibilité et encapsulation 
+. Approfondissement des Design Patterns 
+
+== Pour débuter
+
+https://forms.office.com/e/xgJ3CsCVav[Questionnaire pour débuter]
+
+=== Visual Studio Code
+https://code.visualstudio.com/[Installer Visual Studio Code
+]
+
+Ajouter les extentions :
+
+* C/C\++
+* C/C++ Extension Pack
+* C/C++ Themes
+* CMake
+* CMake Tools
+* Git Graph
+
+=== Compilateur
+https://code.visualstudio.com/docs/cpp/config-mingw#_installing-the-mingww64-toolchain[Installer Mingw en suivant ce tuto]
+
+=== Tester l'installation avec un Hello World!
+Créer un dossier _helloworld_
+Ouvrez vscode dedans (`code .` en console)
+
+Créez un fichier _main.c_ avec ce code :
+[#hello,C]
+----
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    printf("Hello World!");
+}
+----
+
+Cliquer sur la flèche _Debug_ en haut à droite
+Selectionner gcc
+
+Verifier que "Hello World!" s'affiche dans la console
+
+
+=== Et maintenant avec CMake
+Un Makefile est un fichier qui donne les paramètres nécessaire à la génération d'un exécutable à partir du code source (nous détaillerons ça dans la prochaine séance)
+CMake permet, entre autre, de décrire un projet affin de générer automatiquemet une configuration de build (ici un Makefile) adaptée à la platforme. 
+
+kbd:[Ctrl+Shift+p] ouvre la Command Palette
+Taper ```Cmake: Quick Start```
+Suivre les instructions pour configurer le projet.
+
+Commandes importantes : 
+ ```Cmake: Build``` kbd:[F7]
+ ```Cmake: Debug``` kbd:[Shift+F5]
+ ```Cmake: Run Without Debugging``` kbd:[Ctrl+F5]
+
+
+=== Git
+https://git-scm.com/downloads[Installer git]
+La configuration par defaut est très bien
+
