@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "simpleOperation.h"
+
 int main()
 {
 
@@ -9,6 +11,7 @@ int main()
     {
         int choice = 0, a = 0, b = 0;
         printf("\n\nSélectionnez l'opération :\n1 - addition\n2 - soustraction\n");
+        printf("3 - multiplication\n4 - division\n");
         scanf("%d", &choice);
         printf("Entrez les operateurs :\na = ");
         scanf("%d", &a);
@@ -18,12 +21,18 @@ int main()
         switch (choice)
         {
         case 1:
-            printf("%d + %d = %d", a, b, a+b);
+            addition(a, b);
             break;
         case 2:
-            printf("%d - %d = %d", a, b, a-b);
+            soustraction(a, b);
             break;
-                    
+        case 3:
+            mutipplication(a, b);
+            break;
+        case 4:
+            division(a, b);
+            break;
+
         default:
             break;
         }
