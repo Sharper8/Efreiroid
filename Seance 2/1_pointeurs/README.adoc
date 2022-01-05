@@ -1,0 +1,34 @@
+= Exercice : Manipulation de pointeurs
+
+== Pointeurs
+
+. Affichez le contenue d'une variable et son addresse :
+void showAddress(int a);
+
+. Affichez le contenue d'une variable et son addresse :
+void showAddress2(int *a);
+
+. Echanger le contenue de variables a et b :
+void swap(int *a, int *b);
+
+. Ecrire une fonction de type void qui double la valeur d'un int :
+void doubleint(int *a);
+
+== Tableaux dynamiques
+
+. Ecrire une fonction qui demande à l'utilisateur le nombre de case d'un tableau, l'initialise, puis lui demande de le remplir puis l'afficher :
+void userTab();
+
+. Même chose que l'exercice précédent, mais en 2 dimentions :
+void userTab2D();
+
+== Listes chainées
+
+. Ajouter une fonction qui ajoute un element à la fin :
+void addLast(List *list, int id);
+
+. Ajouter une fonction qui supprime le dernier element d'une liste :
+void removeLast(List *list);
+
+. Ajouter une fonction qui supprime tous les éléments ayant un id donné :
+void removeId(List *list, int id);
