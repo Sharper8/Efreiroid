@@ -36,7 +36,7 @@ void string()
     mot2[5] = '\0';
     char ligne[100];
     printf("Entrez un mot : ");
-    scanf("%s", &ligne);
+    scanf("%s", ligne);
     printf("%s %s %s\n", mot, mot2, ligne);
 }
 
