@@ -12,7 +12,8 @@ Programmation orientée objet
 Mettre en place un environnement de dev 
 Utiliser Git 
 Les étapes de compilation 
-Objectifs RS : Ouverture sur la sécurité 
+Objectifs RS : Ouverture sur la sécurité
+Objectifs Dev : Ouverture sur la gestion de projet de développement
 
 == Découpage des séances
 
