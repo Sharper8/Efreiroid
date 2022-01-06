@@ -17,13 +17,13 @@ Objectifs RS : Ouverture sur la sécurité
 == Découpage des séances
 
 . Rappels de C - Fonctions et programmation modulaire, Gestion dynamique de la mémoire et pointeurs, Types structurés
-. Prise en main de l’environnement : Chaine de compilation, Différences C/C++, Entrées/sorties 
-. Classes, Attributs, Méthodes 
+. Prise en main de l’environnement : Chaine de compilation, Différences C/C++, Entrées/sorties, Types structurés et pointeurs sur types structurés
+. ntroduction à la POO : Classes, Attributs, Méthodes, Encapsulation 
 . Gestion de la mémoire et références, Constructeur/destructeur 
-. Introduction à STL et aux Design Patterns 
-. Classes, héritage, surcharge 
-. Polymorphisme, visibilité et encapsulation 
-. Approfondissement des Design Patterns 
+. Généricité, Surcharge, Méthodes statiques, introduction à STL 
+. Introduction aux DP, MVC (Contrôleur), gestion du temps avec STL 
+. MVC (Modèle), générateurs aléatoire avec STL 
+. Conteneurs polymorphes avec STL, MVC (Vue) 
 
 == Pour débuter
 
