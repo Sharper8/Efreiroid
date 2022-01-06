@@ -22,7 +22,7 @@ Objectifs Dev : Ouverture sur la gestion de projet de développement
 . ntroduction à la POO : Classes, Attributs, Méthodes, Encapsulation 
 . Gestion de la mémoire et références, Constructeur/destructeur 
 . Généricité, Surcharge, Méthodes statiques, introduction à STL 
-. Introduction aux DP, MVC (Contrôleur), gestion du temps avec STL 
+. Introduction aux Design Patterns, MVC (Contrôleur), gestion du temps avec STL 
 . MVC (Modèle), générateurs aléatoire avec STL 
 . Conteneurs polymorphes avec STL, MVC (Vue) 
 
