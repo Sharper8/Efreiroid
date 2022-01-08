@@ -3,8 +3,7 @@
 
 
 int WinMain(int argc, char* argv[])
-//int main(int argc, char* argv[])
 {
-        std::cout << "Hello World!" << std::endl;
+        Framework f(100,100,100);
         return 0;
 }
