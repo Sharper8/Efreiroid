@@ -1,9 +1,8 @@
 :hardbreaks:
-:experimental:
 = Seance 2
 
 == Objectifs opérationnels
-
+// tag::OO[]
 *Gestion dynamique de la mémoire*
 
 * Je comprends le fonctionnement d'un pointeur 
@@ -19,3 +18,4 @@
 *Programmation en C++*
 
 * Je sais utiliser les entrées et sorties en C++
+// end::OO[]

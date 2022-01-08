@@ -26,6 +26,24 @@ Objectifs Dev : Ouverture sur la gestion de projet de développement
 . MVC (Modèle), générateurs aléatoire avec STL 
 . Conteneurs polymorphes avec STL, MVC (Vue) 
 
+== Objectifs operationels
+Déclinaison pratique des objectifs, ce sont les compétences que vous devez acquérir après chaque séance.
+
+=== Séance 1
+include::Seance_1/README.adoc[tag=OO]
+
+=== Séance 2
+include::Seance_2/README.adoc[tag=OO]
+
+=== Séance 3
+include::Seance_3/README.adoc[tag=OO]
+
+=== Séance 4
+include::Seance_4/README.adoc[tag=OO]
+
+
+
+
 == Pour débuter
 
 https://forms.office.com/e/xgJ3CsCVav[Questionnaire pour débuter]
