@@ -29,6 +29,7 @@ Un élément n'a pas sa place dans git si :
 * Vous n'êtes pas ammenés à le faire évoluer vous même (ex: une biliothèque)
 On peut tolérer de petits objets liés aux éléments versionnés (ex: images, font)
 
+*HEAD* est une étiquette indiquant là où vous êtes actuellement.
 
 == Commandes git importantes
 Doc officielle de git : https://git-scm.com/docs
@@ -42,7 +43,33 @@ Toutes les indications "Dans vscode" seront donné à partir de là.
 |Commmande git | Dans vscode | Explication
 
 |git clone [url-repo-groupe.git] | kbd:[Ctrl+Shift+p] (ouvre la Command Palette) `Git: clone` | Clone localement le repo
+|git chechout <branch_name> |Checkout to...| Vous place sur une branche (au niveau de l'étiquette)
+|git checkout -b <branch_name> |Branch->Create Branch...| Crée une nouvelle branche (une étiquette) sur le commit actuel et vous place dessus
 |git fetch --all | Fetch | Liste tout ce qui est nouveau sur le serveur
 |git add | bouton + dans la liste des modifications| Fige les modification d'un fichier pour le prochain commit
-|git pull | Sync Changes (gros bouton bleu quand disponible) ou Pull | Met à jour la branche "main" par rapport à celle du serveur, effectue automatiquement un merge si nécessaire
+|git merge <branch_name> |Branch->Merge Branch...| Fusionne les commit de la branche <branch_name> dans la branche actuelle
+|git pull|Pull| Effectue un ``git fetch`` puis un ``git merge`` si nécessaire
+|git push [origin] [branch_name] |Push| Pousse vos modifications locales commitées sur le repo distant
+|git push [origin] [branch_name] -f |Pas disponible| *ATTENTION !* Force le git push en écrasant le repo distant. Pas de retour en arrière possible, il faut être sûr de vous.
 |=== 
+
+== Exemple d'utilisation
+
+----
+      A---B---C topic HEAD
+     /
+D---E---F---G master
+----
+git checkout master
+----
+      A---B---C topic
+     /
+D---E---F---G master HEAD
+----
+
+git merge topic
+----
+      A---B---C topic     
+     /         \
+D---E---F---G---H master HEAD
+----
