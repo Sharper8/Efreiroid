@@ -15,10 +15,18 @@ set(
 set(
     HEADER
     framework.hpp
+        framework.cpp
+        Asteroid.h
+        Asteroid.cpp
+        Spaceship.h
+        Spaceship.cpp
+        Missile.h
+        Missile.cpp
+
 )
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-add_executable(SDLTEST WIN32 ${SRCS} ${HEADER})
+add_executable(SDLTEST ${SRCS} ${HEADER})
 target_link_libraries(SDLTEST ${SDL2_LIBRARIES})

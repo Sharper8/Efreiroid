@@ -25,7 +25,7 @@ class Framework {
         // * fps : taux de rafraichissement de l'écran (nombre d'images par seconde)
         // * shipSize : taille d'affichage du vaisseau, en pixels
         // * missileSize : taille d'affichage du missile, en pixels
-        Framework(int fps, int shipSize, int missileSize);
+        Framework(int width, int height, int fps, int shipSize, int missileSize);
 
         //////////////////////////////////////////////
         // Constructeur.
@@ -35,7 +35,7 @@ class Framework {
         // * fps : taux de rafraichissement de l'écran (nombre d'images par seconde)
         // * shipSize : taille d'affichage du vaisseau, en pixels
         // * missileSize : taille d'affichage du missile, en pixels
-        Framework(int width, int height, int fps, int shipSize, int missileSize);
+        Framework(int fps, int shipSize, int missileSize);
 
         ~Framework();
 
