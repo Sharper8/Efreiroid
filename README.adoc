@@ -18,7 +18,7 @@ Objectifs Dev : Ouverture sur la gestion de projet de développement
 == Découpage des séances
 
 . Rappels de C - Fonctions et programmation modulaire, Gestion dynamique de la mémoire et pointeurs
-. Prise en main de l’environnement : Chaine de compilation, Différences C/C++, Entrées/sorties, Types structurés et pointeurs sur types structurés
+. Prise en main de l'environnement : Chaine de compilation, Différences C/C++, Entrées/sorties, Types structurés et pointeurs sur types structurés
 . ntroduction à la POO : Classes, Attributs, Méthodes, Encapsulation 
 . Gestion de la mémoire et références, Constructeur/destructeur 
 . Généricité, Surcharge, Méthodes statiques, introduction à STL 
@@ -40,6 +40,9 @@ include::Seance_3/README.adoc[tag=OO]
 
 === Séance 4
 include::Seance_4/README.adoc[tag=OO]
+
+=== Séance 5
+include::Seance_5/README.adoc[tag=OO]
 
 
 
