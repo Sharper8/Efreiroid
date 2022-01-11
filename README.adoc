@@ -44,6 +44,9 @@ include::Seance_4/README.adoc[tag=OO]
 === Séance 5
 include::Seance_5/README.adoc[tag=OO]
 
+=== Séance 6
+include::Seance_6/README.adoc[tag=OO]
+
 
 
 
