@@ -1,5 +1,6 @@
 #include <iostream>
 #include "framework.hpp"
+#include "FlyingObject.h"
 #include "Asteroid.h"
 #include "Missile.h"
 #include "Spaceship.h"
@@ -32,27 +33,22 @@ int WinMain(int argc, char* argv[])
     //initialisation of the random function
     srand(static_cast<unsigned>(time(NULL)));
     //framework initialisation
-    Framework framework(60, 20, 10);
+    Framework framework(60, 50, 10);
     //debug value
+    bool playing = true;
     bool DEBUG = true;
-    //init a list of asteroids with random speed, size and position
-    vector<Missile*> missileList;
     //vector for missiles
+    vector<Missile*> missileList;
+    //init a list of asteroids with random speed, size and position
     vector<Asteroid*> asteroidList;
-    //init a list of missiles with random speed, size and position
-
     for (int i = 0; i < NB_ASTEROIDS; ++i) {
         double tabDirections [2] = {1, -1};
         asteroidList.push_back(new Asteroid(rand() % framework.GetScreenWidth(), rand() % framework.GetScreenHeight(), rand() % 50 + 20, tabDirections[rand() % 2] * (rand() % 15 + 2), tabDirections[rand() % 2] * (rand() % 10 + 2)));
     }
-    Spaceship spaceship(framework.GetScreenWidth()/2,framework.GetScreenHeight()/2,0, 10 , 0, 0);
+    Spaceship spaceship(framework.GetScreenWidth()/2,framework.GetScreenHeight()/2,0, 500 , 0, 0);
     framework.DrawShip(spaceship.GetX(), spaceship.GetY(), 0,0,false);
-    //for asteroind in vector DEBUG
-//    for (int i = 0; i < asteroidList.size(); ++i) {
-//        //print its parameters
-//        cout << "Asteroid " << i << " speed: " << asteroidList[i]->GetXSpeed() << " " << asteroidList[i]->GetYSpeed() << endl;
-//    }
     //main loop
+//    while(asteroidList.size() > 0 )
     while(true)
     {
         //get user input
@@ -100,28 +96,17 @@ int WinMain(int argc, char* argv[])
             for (int j = 0; j < missileList.size(); ++j) {
                 if (checkCollision(asteroidList[i], missileList[j])) {
                     //destroy both elements
-                    asteroidList[i]->~Asteroid();
-                    missileList[j]->~Missile();
-                    //remove them from the vector
                     asteroidList.erase(asteroidList.begin() + i);
                     missileList.erase(missileList.begin() + j);
-                    //free memory
-                    delete asteroidList[i];
-                    delete missileList[j];
-
-                    //DEBUG
-                    cout << "Collision" << endl;
-                }
-                else{
-                    //DEBUG
-//                    cout << "No collision" << endl;
-                    missileList[j]->Move(framework.GetScreenWidth(), framework.GetScreenHeight());
-                    //show asteroid and missile on the canvas
-                    framework.DrawMissile(missileList[j]->GetX(), missileList[j]->GetY());
                 }
             }
             asteroidList[i]->Move(framework.GetScreenWidth(), framework.GetScreenHeight());
             framework.DrawAsteroid(asteroidList[i]->GetX(), asteroidList[i]->GetY(), asteroidList[i]->GetSize());
+        }
+        //show missile on canvas
+        for (int i = 0; i < missileList.size(); ++i) {
+            missileList[i]->Move(framework.GetScreenWidth(), framework.GetScreenHeight());
+            framework.DrawMissile(missileList[i]->GetX(), missileList[i]->GetY());
         }
         framework.DrawShip(spaceship.GetX(), spaceship.GetY(), spaceship.GetAngle()+90, 0, false);
         spaceship.Move(framework.GetScreenWidth(), framework.GetScreenHeight());
@@ -130,8 +115,13 @@ int WinMain(int argc, char* argv[])
     }
 
     //free memory
-    for (int i = 0; i < asteroidList.size(); ++i) {
-        delete asteroidList[i];
-    }
+//    for (int i = 0; i < asteroidList.size(); ++i) {
+//        delete asteroidList[i];
+//    }
+    //free vectors
+    asteroidList.clear();
+    missileList.clear();
+    //free framework
+    framework.~Framework();
      return 0;
 }

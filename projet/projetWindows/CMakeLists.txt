@@ -16,6 +16,8 @@ set(
     HEADER
     framework.hpp
         framework.cpp
+        FlyingObject.cpp
+        FlyingObject.h
         Asteroid.h
         Asteroid.cpp
         Spaceship.h

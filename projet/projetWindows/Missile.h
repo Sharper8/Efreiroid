@@ -13,8 +13,9 @@ class Missile {
     double size;
     double xSpeed;
     double ySpeed;
+    double m_angle;
 
-    public:
+public:
 
     //destructeur
     ~Missile();
