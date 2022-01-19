@@ -9,12 +9,11 @@
 class FlyingObject {
 
     double x;
-
     double y;
     double size;
     double xSpeed;
     double ySpeed;
-public:
+    public:
 
     //constructeur par défaut
     FlyingObject(double x, double y, double size, double xSpeed, double ySpeed);

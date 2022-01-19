@@ -57,7 +57,7 @@ int WinMain(int argc, char* argv[])
         if(input == SDLK_ESCAPE)
         {
             break;
-        }
+          }
         //MVC
         //move the spaceship has in space
         if(input == SDLK_UP)
