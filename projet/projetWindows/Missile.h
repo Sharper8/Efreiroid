@@ -2,43 +2,25 @@
 // Created by Sharper8 on 11/09/2023.
 //
 
+#include "FlyingObject.h"
+
 #ifndef SDLTEST_MISSILE_H
 #define SDLTEST_MISSILE_H
 
 
-class Missile {
-
-    double x;
-    double y;
-    double size;
-    double xSpeed;
-    double ySpeed;
-    double m_angle;
+class Missile:public FlyingObject {
+    double x = x;
+    double y = y;
+    double size = size;
+    double xSpeed = xSpeed;
+    double ySpeed = ySpeed;
 
 public:
 
-    //destructeur
-    ~Missile();
+    Missile(double x, double y, double size, double xSpeed, double ySpeed);
 
-    //getters
-    double GetX();
-    double GetY();
-    double GetXSpeed();
-    double GetYSpeed();
-
-    //setters
-    void SetX(double xSpeed);
-    void SetY(double ySpeed);
-    void SetXSpeed(double xSpeed);
-    void SetYSpeed(double ySpeed);
-    void SetSize(double size);
-
-    void Move();
-
+//destructeur
     void Move(double screenWidth, double screenHeight);
 
-    double GetSize();
-
-    Missile(double x, double y, double size, double xSpeed, double ySpeed);
 };
 #endif //SDLTEST_MISSILE_H

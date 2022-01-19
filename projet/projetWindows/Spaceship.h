@@ -1,49 +1,40 @@
 //
 // Created by Sharper8 on 07/09/2023.
 //
+#include "FlyingObject.h"
 
 #ifndef SDLTEST_SPACESHIP_H
 #define SDLTEST_SPACESHIP_H
 
 
-class Spaceship {
+class Spaceship:public FlyingObject {
 
     double x;
+
     double y;
     double shipSize;
     double angle;
     double xSpeed;
     double ySpeed;
     double speed;
-
     public:
-    ///////////////
-    // Constructeur
-    // -------
-    // * x, y : position dans l'écran
-    // * size : diamètre de l'objet
+
     // * xSpeed, ySpeed : vecteur de vitesse de l'objet
-
-    Spaceship(double x, double y, double size, double xSpeed, double ySpeed);
-
-    // destructeur
-    ~Spaceship();
+    // * size : diamètre de l'objet
+    // * x, y : position dans l'écran
+    // -------
+    // Constructeur
+    ///////////////
+    Spaceship(double x, double y, double size, double xSpeed, double ySpeed, double angle);
+    //Spaceship(double x, double y, double size, double xSpeed, double ySpeed);
 
     //////////
     // Getters
-        double GetX();
-        double GetY();
-        double GetXSpeed();
-        double GetYSpeed();
         double GetAngle();
         double GetSpeed();
 
     //////////
     // Setters
-        void SetX(double xSpeed);
-        void SetY(double ySpeed);
-        void SetXSpeed(double xSpeed);
-        void SetYSpeed(double ySpeed);
         void SetAngle(double size);
         void SetSpeed(double speed);
 
@@ -63,7 +54,6 @@ class Spaceship {
 
     void updateSpeed();
 
-    Spaceship(double x, double y, double angle, double size, double xSpeed, double ySpeed);
 };
 
 

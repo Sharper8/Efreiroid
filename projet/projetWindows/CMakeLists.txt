@@ -24,6 +24,12 @@ set(
         Spaceship.cpp
         Missile.h
         Missile.cpp
+        Model.cpp
+        Model.h
+        View.cpp
+        View.h
+        Controller.cpp
+        Controller.h
 
 )
 

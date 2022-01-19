@@ -31,6 +31,10 @@ double FlyingObject::GetYSpeed() {
     return ySpeed;
 }
 
+double FlyingObject::GetSize() {
+    return size;
+}
+
 //setters
 void FlyingObject::SetX(double xSpeed) {
     this->x = xSpeed;
@@ -87,17 +91,8 @@ void FlyingObject::Move(double screenWidth, double screenHeight) {
 }
 
 FlyingObject::~FlyingObject() {
-
 }
 
 double FlyingObject::GetSize() {
     return size;
 }
-
-//FlyingObject::FlyingObject(double x, double y, double size, double xSpeed, double ySpeed) {
-//    this->x = x;
-//    this->y = y;
-//    this->size = size;
-//    this->xSpeed = xSpeed;
-//    this->ySpeed = ySpeed;
-//}
