@@ -15,11 +15,6 @@ View::View(Framework* framework) {
 }
 
 void View::update(vector<FlyingObject*> flyingObjectsList){
-    //print OK in console if the view is updated, and the list is not empty
-//    if (!flyingObjectsList.empty()) {
-//        cout << "View updated" << endl;
-//    }
-
     //for each element in the list
     for (auto & i : flyingObjectsList) {
         //if the element is an asteroid
@@ -27,7 +22,6 @@ void View::update(vector<FlyingObject*> flyingObjectsList){
             //show asteroid on canvas
             framework->DrawAsteroid(((Asteroid*)i)->GetX(), ((Asteroid*)i)->GetY(), ((Asteroid*)i)->GetSize());
         }
-
         //if the element is a missile
         if (i->GetTypeName() == "Missile") {
             //show missile on canvas

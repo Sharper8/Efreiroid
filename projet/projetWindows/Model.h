@@ -22,6 +22,7 @@ class Model {
     private:
     // attributes
     bool debug;
+    double missilesize;
     bool isRunning;
     int screenWidth;
     int screenHeight;

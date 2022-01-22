@@ -9,11 +9,7 @@
 
 
 class Missile:public FlyingObject {
-    double x = x;
-    double y = y;
     double size = size;
-    double xSpeed = xSpeed;
-    double ySpeed = ySpeed;
 
 public:
 

@@ -20,6 +20,5 @@ int WinMain(int argc, char* argv[]) {
     //MVC implementation
     Controller controller(60, 50, 10);
     controller.LaunchGame();
-    cout << "end of the game" << endl;
     return 0;
 }

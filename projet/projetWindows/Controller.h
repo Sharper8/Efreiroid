@@ -24,8 +24,7 @@ class Controller {
     Controller(int fps,int shipSize,int missileSize);
     // destructor
     ~Controller();
-    // methods
-    bool getIsRunning();
+
     void setIsRunning(bool running);
     void LaunchGame();
 };

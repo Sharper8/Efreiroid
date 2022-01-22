@@ -22,16 +22,9 @@ Controller::~Controller() {
     delete view;
 }
 
-
-// methods§
-
 //function to transform deg in rad
 double degvrad(double degrees) {
     return degrees * M_PI / 180.0;
-}
-
-bool Controller::getIsRunning() {
-    return this->isRunning;
 }
 
 void Controller::setIsRunning(bool running) {
@@ -42,44 +35,34 @@ void Controller::LaunchGame() {
     while (isRunning) {
         //get user input
         int input = framework->GetInput();
-        //input treatment passed to the model
-        if (input == SDLK_ESCAPE) {
-//            cout << "Game over" << endl;
-            model->setIsRunning(false);
-            setIsRunning(false);
-            //delete the canvas
-            delete framework;
-        }
-        if (input == SDLK_UP) {
-            // Accelerate
-            model->accelerate();
-        }
-        if (input == SDLK_DOWN) {
-            //decelerate
-            model->spaceship->SetXSpeed(model->spaceship->GetXSpeed() - cos(degvrad(model->spaceship->GetAngle())) * 0.65);
-            model->spaceship->SetYSpeed(model->spaceship->GetYSpeed() - sin(degvrad(model->spaceship->GetAngle())) * 0.65);
-            model->decelerate();
-        }
-        if (input == SDLK_LEFT) {
-            //rotate left
-            model->rotate(-20);
-        }
-        if (input == SDLK_RIGHT) {
-            //rotate right
-            model->rotate(20);
-        }
-        //shoot a missile
-        if (input == SDLK_SPACE) {
-            //shoot a missile
-            model->shoot();
-        }
-        //settings commands
-        if (input == SDLK_p) {
-            model->SetDebug(!model->getDebug());
+        //input treatment for the spaceship controls
+        switch (input) {
+            case SDLK_UP:
+                model->accelerate();
+                break;
+            case SDLK_DOWN:
+                model->decelerate();
+                break;
+            case SDLK_LEFT:
+                model->rotate(-10);
+                break;
+            case SDLK_RIGHT:
+                model->rotate(10);
+                break;
+            case SDLK_SPACE:
+                model->shoot();
+                break;
+            case SDLK_ESCAPE:
+                isRunning = false;
+                break;
+            default:
+                break;
+
         }
         model->update();
         view->update(model->getAllFlyingObjects());
     }
-
-
+    delete framework;
+    delete model;
+    delete view;
 }

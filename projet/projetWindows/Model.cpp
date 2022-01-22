@@ -23,12 +23,13 @@ Model::Model(int screenWidth, int screenHeight, int shipSize, int missileSize, F
     this->screenWidth = screenWidth;
     this->screenHeight = screenHeight;
     this->framework = framework;
+    this->missilesize = missileSize;
 
     //initialisation of the random
     srand(static_cast<unsigned>(time(NULL)));
 
     //define spaceship
-    this->spaceship = new Spaceship(screenWidth / 2, screenHeight / 2, shipSize, 0, 0, 90);
+    this->spaceship = new Spaceship(screenWidth / 2, screenHeight / 2, shipSize, 0, 0, 0);
     //vector for missiles
     this->missileList = vector<Missile*> ();
 
@@ -38,23 +39,8 @@ Model::Model(int screenWidth, int screenHeight, int shipSize, int missileSize, F
     for (int i = 0; i < 10; ++i) {
         int x = rand() % screenWidth;
         int y = rand() % screenHeight;
-        int size = rand() % 50 + 20;
+        int size = rand() % 100 + 50;
         asteroidList.push_back(new Asteroid(x, y,size, tabDirections[rand() % 2] * (rand() % 15 + 2),tabDirections[rand() % 2] * (rand() % 10 + 2)));
-    }
-}
-
-// useful functions
-void checkCollision(vector<Asteroid *> A, vector<Missile *> B) {
-    //for each element, if one asteroid collide with a missile, destroy both elements, else update both
-for (int i = 0; i < A.size(); ++i) {
-        for (int j = 0; j < B.size(); ++j) {
-            double distance = sqrt(pow(A[i]->GetX() - B[j]->GetX(), 2) + pow(A[i]->GetY() - B[j]->GetY(), 2));
-            if (distance <= A[i]->GetSize() + B[j]->GetSize()) {
-                //destroy both elements
-                A.erase(A.begin() + i);
-                B.erase(B.begin() + j);
-            }
-        }
     }
 }
 
@@ -63,63 +49,61 @@ double deg2rad(double degrees) {
     return degrees * M_PI / 180.0;
 }
 
-//function to transform rad in deg
-double rad2deg(double radians) {
-    return radians * 180.0 / M_PI;
-}
-
-//optional methods
-bool Model::getDebug() {
-    return this->debug;
-}
-
-void Model::SetDebug(bool b) {
-    this->debug = b;
-}
-
 void Model::setIsRunning(bool running) {
     this->isRunning = running;
 }
 
-// methods
 void Model::accelerate() {
-     spaceship->SetXSpeed(spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 1.35);
-//     cout << spaceship->GetYSpeed() << endl;
-     spaceship->SetYSpeed(spaceship->GetYSpeed() - cos(deg2rad(spaceship->GetAngle())) * 1.35);
-//     cout << spaceship->GetYSpeed() << endl;
+    double new_xSpeed = spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle())) * 1.35;
+    double new_ySpeed = spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 1.35;
+    spaceship->SetXSpeed(new_xSpeed);
+    spaceship->SetYSpeed(new_ySpeed);
 }
 
+// methods
 void Model::decelerate() {
-    spaceship->SetXSpeed(spaceship->GetXSpeed() - cos(deg2rad(spaceship->GetAngle())) * 0.65);
-    spaceship->SetYSpeed(spaceship->GetYSpeed() - sin(deg2rad(spaceship->GetAngle())) * 0.65);
-
+        double new_ySpeed = spaceship->GetYSpeed() - sin(deg2rad(spaceship->GetAngle())) * 1.35;
+        double new_xSpeed = spaceship->GetXSpeed() - cos(deg2rad(spaceship->GetAngle())) * 0.65;
+        spaceship->SetXSpeed(new_xSpeed);
+        spaceship->SetYSpeed(new_ySpeed);
 }
 
 void Model::rotate(int angle) {
-    spaceship->SetAngle(spaceship->GetAngle() + angle );
+    double new_angle = spaceship->GetAngle() + angle;
+    spaceship->SetAngle(new_angle);
 }
 
 void Model::shoot() {
-    missileList.push_back(new Missile(spaceship->GetX(), spaceship->GetY(), 10,
-                                      1.1 * (spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle()))),
-                                      1.1 * (spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())))));
+    //new missile object
+    double xpos = spaceship->GetX();
+    double ypos = spaceship->GetY();
+    //base velocity of the missile
+    double xspeed = spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle())) * 10;
+    double yspeed = spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 10;
+    auto TEST = new Missile(xpos, ypos, this->missilesize, xspeed, yspeed);
+    missileList.push_back(TEST);
 }
 
 void Model::update() {
     //check for collisions in both lists
-    checkCollision(this->asteroidList, this->missileList);
-     //update the positions of all the elements
-//    spaceship->SetXSpeed(50);
-//    framework->DrawShip(spaceship->GetX(), spaceship->GetY(), spaceship->GetAngle()+90, 0, false);
+    for (int i = 0 ; i<asteroidList.size();++i){
+        for (int j = 0; j < missileList.size(); ++j) {
+            if (FlyingObject::Collide(asteroidList[i], missileList[j])) {
+                // delete the asteroid and the missile
+                delete asteroidList[i];
+                delete missileList[j];
+                asteroidList.erase(asteroidList.begin()+i);
+                missileList.erase(missileList.begin()+j);
+            }
+        }
+    }
+    //update elements on the canvas
     spaceship->Move(screenWidth, screenHeight);
-    framework->DrawShip(spaceship->GetX(), spaceship->GetY(), spaceship->GetAngle()+90, 0, false);
     for (int i = 0; i < asteroidList.size(); ++i) {
         asteroidList[i]->Move(screenWidth, screenHeight);
     }
     for (int i = 0; i < missileList.size(); ++i) {
         missileList[i]->Move(screenWidth, screenHeight);
-//        cout << missileList[i]->GetX() << endl;
-//        cout << " missile boujé  \n" << endl;
     }
     framework->Update();
 }
@@ -130,14 +114,10 @@ vector<FlyingObject *> Model::getAllFlyingObjects() {
     allFlyingObjects.push_back(spaceship);
     for (int i = 0; i < asteroidList.size(); ++i) {
         allFlyingObjects.push_back(asteroidList[i]);
-        //TODO enelever les cout
-        cout<<"j'envoie "<<asteroidList.size()<<" asteroides";
     }
     for (int i = 0; i < missileList.size(); ++i) {
         allFlyingObjects.push_back(missileList[i]);
-        cout<<"j'envoie "<<missileList.size()<<" missiles";
     }
-    cout<<"j'envoie "<<allFlyingObjects.size()<<" objets en tout";
     return allFlyingObjects;
 }
 

@@ -10,14 +10,15 @@ using namespace std;
 //define flying object class
 class FlyingObject {
 
+    protected:
     double x;
     double y;
     double size;
     double xSpeed;
     double ySpeed;
     double angle;
-    public:
 
+    public:
     //constructeur par défaut
     FlyingObject(double x, double y, double size, double xSpeed, double ySpeed);
 //    FlyingObject(double x, double y, double size, double xSpeed, double ySpeed);
@@ -47,6 +48,9 @@ class FlyingObject {
     double GetSize();
 
     virtual string GetTypeName()=0;
+
+    static bool Collide(FlyingObject *o1, FlyingObject *o2);
+
 
 };
 #endif //SDLTEST_FLYINGOBJECT_H

@@ -7,23 +7,20 @@
 Missile::Missile(double x, double y,double size, double xSpeed, double ySpeed):FlyingObject(x, y, size, xSpeed, ySpeed){}
 
 void Missile::Move(double screenWidth, double screenHeight) {
-    // -------
+    // -------TODO implémenter la destruciton quand sortie
     y += ySpeed;
     x += xSpeed;
     if (x > screenWidth) {
-        delete this;
+        x=0;
     }
     if (x < 0) {
-        delete this;
+        x=screenWidth;
     }
     if (y > screenHeight) {
-        delete this;
+        y=0;
     }
     if (y < 0) {
-        delete this;
-    }
-    if (y > screenWidth) {
-        delete this;
+        y=screenHeight;
     }
 }
 

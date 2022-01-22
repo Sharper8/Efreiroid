@@ -197,7 +197,7 @@ void Framework::Init(int width, int height, int fps, int shipSize, int missileSi
         exit(1);
     }
 
-    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+    //SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
     // Création du moteur de rendu graphique
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
