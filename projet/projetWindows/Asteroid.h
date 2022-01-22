@@ -15,6 +15,7 @@ public:
     // -------
 
     Asteroid(double x, double y, double size, double xSpeed, double ySpeed);
+    string GetTypeName() override;
 };
 
 #endif //SDLTEST_ASTEROID_H

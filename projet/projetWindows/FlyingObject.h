@@ -1,6 +1,8 @@
 //
 // Created by Sharper8 on 18/09/2023.
 //
+#include <string>
+using namespace std;
 
 #ifndef SDLTEST_FLYINGOBJECT_H
 #define SDLTEST_FLYINGOBJECT_H
@@ -13,6 +15,7 @@ class FlyingObject {
     double size;
     double xSpeed;
     double ySpeed;
+    double angle;
     public:
 
     //constructeur par défaut
@@ -27,6 +30,7 @@ class FlyingObject {
     double GetY();
     double GetXSpeed();
     double GetYSpeed();
+    double GetAngle();
 
     //setters
     void SetX(double xSpeed);
@@ -34,12 +38,15 @@ class FlyingObject {
     void SetXSpeed(double xSpeed);
     void SetYSpeed(double ySpeed);
     void SetSize(double size);
+    void SetAngle(double angle);
 
-    void Move();
+    virtual void Move();
 
-    void Move(double screenWidth, double screenHeight);
+    virtual void Move(double screenWidth, double screenHeight);
 
     double GetSize();
+
+    virtual string GetTypeName()=0;
 
 };
 #endif //SDLTEST_FLYINGOBJECT_H

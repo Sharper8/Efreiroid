@@ -11,35 +11,42 @@
 // constructor
 Controller::Controller(int fps, int shipSize, int missileSize) {
     this->framework = new Framework(fps, shipSize, missileSize);
-    this->model = new Model(framework->GetScreenWidth(), framework->GetScreenHeight(), 50, 10);
-    this->view = new View();
+    this->model = new Model(framework->GetScreenWidth(), framework->GetScreenHeight(), shipSize, missileSize, framework);
+    this->view = new View(framework);
     this->isRunning = true;
 }
 
-// methods
-//isrunning
+//destructor
+Controller::~Controller() {
+    delete model;
+    delete view;
+}
+
+
+// methods§
 bool Controller::getIsRunning() {
     return this->isRunning;
 }
 
-void Controller::setIsRunning(bool isRunning) {
-    this->isRunning = isRunning;
+void Controller::setIsRunning(bool running) {
+    this->isRunning = running;
 }
 
 void Controller::LaunchGame() {
-    while (this->isRunning) {
+    while (isRunning) {
         //get user input
-        int input = this->framework->GetInput();
+        int input = framework->GetInput();
         //input treatment passed to the model
         if (input == SDLK_ESCAPE) {
+//            cout << "Game over" << endl;
             model->setIsRunning(false);
+            setIsRunning(false);
             //delete the canvas
             delete framework;
         }
         if (input == SDLK_UP) {
             // Accelerate
             model->accelerate();
-
         }
         if (input == SDLK_DOWN) {
             //decelerate
@@ -63,7 +70,8 @@ void Controller::LaunchGame() {
             model->SetDebug(!model->getDebug());
         }
         model->update();
-        view->update(model->getSpaceAllFlyingobjects());
+        view->update(model->getAllFlyingObjects());
     }
+
 
 }

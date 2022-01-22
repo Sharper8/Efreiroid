@@ -72,4 +72,8 @@ git merge topic
       A---B---C topic     
      /         \
 D---E---F---G---H master HEAD
+<<<<<<< HEAD
 ----
+=======
+----
+>>>>>>> 7377b547a5d62f034fe12d701ac6df0aecf1179d

@@ -4,7 +4,7 @@
 
 #include "FlyingObject.h"
 
-//constyructeur
+//constructeur
 
 FlyingObject::FlyingObject(double x, double y, double size, double xSpeed, double ySpeed) {
     this->x = x;
@@ -93,6 +93,11 @@ void FlyingObject::Move(double screenWidth, double screenHeight) {
 FlyingObject::~FlyingObject() {
 }
 
-double FlyingObject::GetSize() {
-    return size;
+double FlyingObject::GetAngle() {
+    return angle;
 }
+
+void FlyingObject::SetAngle(double angle) {
+
+}
+

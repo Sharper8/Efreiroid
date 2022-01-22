@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include "Spaceship.h"
+#include <iostream>
 
 Spaceship::Spaceship(double x, double y, double size, double xSpeed, double ySpeed,double angle) : FlyingObject(x, y, size, xSpeed, ySpeed) {
     this->x = x;
@@ -15,29 +16,33 @@ Spaceship::Spaceship(double x, double y, double size, double xSpeed, double ySpe
     this->speed = 0;
 }
 
-double Spaceship::GetAngle() {
-    return angle;
-}
-
-
-//setters
-
-void Spaceship::SetAngle(double angle) {
-    this->angle = angle;
-}
-
-//movement vector
-void Spaceship::updateSpeed() {
-    xSpeed = speed * cos(angle);
-    ySpeed = speed * sin(angle);
-}
-
-
 //move
-void Spaceship::Move() {
+//void Spaceship::Move() {
+//
+//    x += 1* cos(angle)+50;
+//    y += 1* sin(angle)+50;
+//    std::cout << "x : " << x << " y : " << y << std::endl;
+//}
 
-    x += 1* cos(angle)+50;
-    y += 1* sin(angle)+50;
+string Spaceship::GetTypeName() {
+    return "Spaceship";
 }
 
+void Spaceship::Move(double screenWidth, double screenHeight) {
+    //TODO : REMOVE IF OK
+    x += xSpeed;
+    y += ySpeed;
 
+    if (x > screenWidth) {
+        x = 0;
+    }
+    if (x < 0) {
+        x = screenWidth;
+    }
+    if (y > screenHeight) {
+        y = 0;
+    }
+    if (y < 0) {
+        y = screenHeight;
+    }
+}

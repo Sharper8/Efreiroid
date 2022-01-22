@@ -17,5 +17,5 @@ set(
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-add_executable(SDLTEST ${SRCS} ${HEADER})
+add_executable(SDLTEST WIN32 ${SRCS} ${HEADER})
 target_link_libraries(SDLTEST ${SDL2_LIBRARIES})

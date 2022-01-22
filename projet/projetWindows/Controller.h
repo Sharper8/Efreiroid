@@ -26,7 +26,7 @@ class Controller {
     ~Controller();
     // methods
     bool getIsRunning();
-    void setIsRunning(bool isRunning);
+    void setIsRunning(bool running);
     void LaunchGame();
 };
 #endif //SDLTEST_CONTROLLER_H

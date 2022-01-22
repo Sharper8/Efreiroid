@@ -25,7 +25,7 @@ class Model {
     bool isRunning;
     int screenWidth;
     int screenHeight;
-
+    Framework *framework;
     Spaceship* spaceship;
     vector<Missile *> missileList;
     vector<Asteroid *> asteroidList;
@@ -33,23 +33,22 @@ class Model {
     // public section
 public:
     // constructor
-    Model(int screenWidth,int screenHeight,int shipSize,int missileSize);
+    Model(int screenWidth,int screenHeight,int shipSize,int missileSize, Framework *framework);
     // destructor
     ~Model();
 
     //optional methods
     bool getDebug();
-    void SetDebug(bool debug);
+    void SetDebug(bool b);
 
-    bool getIsRunning();
-    void setIsRunning(bool isRunning);
+    void setIsRunning(bool running);
 
     // methods
     void accelerate();
 
     void update();
 
-    std::vector<FlyingObject*> getSpaceAllFlyingobjects();
+    std::vector<FlyingObject*> getAllFlyingObjects();
 
     void decelerate();
 

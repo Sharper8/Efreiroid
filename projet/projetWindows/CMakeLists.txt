@@ -4,6 +4,7 @@ project(SDLTEST VERSION 0.1.0 LANGUAGES C CXX)
 set (SDL2_DIR ./)
 
 file(COPY bin/SDL2.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 file(COPY images/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/images/)
 
 set(
@@ -13,28 +14,30 @@ set(
 )
 
 set(
+
     HEADER
     framework.hpp
-        framework.cpp
-        FlyingObject.cpp
-        FlyingObject.h
-        Asteroid.h
-        Asteroid.cpp
-        Spaceship.h
-        Spaceship.cpp
-        Missile.h
-        Missile.cpp
-        Model.cpp
-        Model.h
-        View.cpp
-        View.h
-        Controller.cpp
-        Controller.h
-
+    framework.cpp
+    FlyingObject.cpp
+    FlyingObject.h
+    Asteroid.h
+    Asteroid.cpp
+    Spaceship.h
+    Spaceship.cpp
+    Missile.h
+    Missile.cpp
+    Model.cpp
+    Model.h
+    View.cpp
+    View.h
+    Controller.cpp
+    Controller.h
 )
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
 add_executable(SDLTEST ${SRCS} ${HEADER})
+#add_executable(SDLTEST WIN32 ${SRCS} ${HEADER})
+
 target_link_libraries(SDLTEST ${SDL2_LIBRARIES})

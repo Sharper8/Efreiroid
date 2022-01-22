@@ -10,50 +10,27 @@
 class Spaceship:public FlyingObject {
 
     double x;
-
     double y;
     double shipSize;
     double angle;
     double xSpeed;
     double ySpeed;
     double speed;
+
     public:
 
-    // * xSpeed, ySpeed : vecteur de vitesse de l'objet
-    // * size : diamètre de l'objet
-    // * x, y : position dans l'écran
-    // -------
-    // Constructeur
+    // Constructor
     ///////////////
     Spaceship(double x, double y, double size, double xSpeed, double ySpeed, double angle);
-    //Spaceship(double x, double y, double size, double xSpeed, double ySpeed);
-
-    //////////
-    // Getters
-        double GetAngle();
-        double GetSpeed();
-
-    //////////
-    // Setters
-        void SetAngle(double size);
-        void SetSpeed(double speed);
 
     /////////////////////////
     // Déplacement de l'objet
     // déplace selon le vecteur de vitesse de l'objet
-        void Move();
+    void Move(double screenWidth, double screenHeight) override;
 
-    ///////////////////////////////////////
-    // Déplacement de l'objet avec réentrée
-    // déplace selon le vecteur de vitesse de l'objet
-    // en cas de sortie des limites de l'écran, fait réapparaitre l'objet
-    // de l'autre côté
-    // -------
-    // * screenWidth, screenHeight : taille de l'écran
-        void Move(double screenWidth, double screenHeight);
+    string GetTypeName() override;
 
-    void updateSpeed();
-
+    //void Move() override;
 };
 
 

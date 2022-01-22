@@ -19,8 +19,9 @@ public:
 
     Missile(double x, double y, double size, double xSpeed, double ySpeed);
 
-//destructeur
-    void Move(double screenWidth, double screenHeight);
-
+    void Move(double screenWidth, double screenHeight) override;
+    string GetTypeName() override;
 };
+
+
 #endif //SDLTEST_MISSILE_H
