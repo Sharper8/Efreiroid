@@ -5,17 +5,18 @@ Cette fonctionnalité permet d'avoir un ensemble d'astéroïdes présents en mê
 
  
 
-Modifiez le Modèle pour remplacer l'astéroïde par un ensemble d'astéroïdes dans un vector de la classe std. Ces astéroïdes auront tous une position et une orientation aléatoires. Une fois encore, il faudra considérer un vecteur de pointeurs, par directement un vecteur d'objets. Ça nous facilitera grandement la vie dans quelques instants. 
+Modifiez le Modèle pour remplacer l'astéroïde par un ensemble d'astéroïdes dans un vector de la classe std. Ces astéroïdes auront tous une position et une orientation aléatoires. Une fois encore, il faudra considérer un vecteur de pointeurs, pas directement un vecteur d'objets. Ça nous facilitera grandement la vie dans quelques instants. 
 
  
 
-Modifiez la méthode renvoyant tous les objets volants pour qu'elle recopie le contenu de ce vecteur dans celui qu'elle renvoie. Parmi toutes les méthodes de recopie, la plus simple pour nous sera la suivante :  
+Modifiez la méthode renvoyant tous les objets volants pour qu'elle recopie le contenu de ce vecteur dans celui qu'elle renvoie. Parmi toutes les méthodes de recopie, la plus simple pour nous sera la suivante :
 
+[source,C++]
+----
 vector<Asteroid *> asteroids; 
 
-... 
-
 vector<FlyingObject *> v(asteroids.begin(), asteroids.end()); 
+----
 
 Ce code recopie l'ensemble des éléments de asteroids vers v sans avoir de problématique de transtypage. On n'aurait pas pu faire comme ça si on avait considéré des vector<Asteroid> au lieu de vector<Asteroid *>. 
 

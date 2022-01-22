@@ -13,7 +13,7 @@ double m_x;
 double m_y; 
 double m_size; 
 double m_xSpeed; 
-double m_ySpeed); 
+double m_ySpeed; 
 ----
 
 ``x`` et ``y`` sont les coordonnées de l'astéroïde à l'écran. ``xSpeed`` et ``ySpeed`` sont les coordonnées (on parle aussi de composantes) du vecteur de vitesse. Lors d'un déplacement, ces valeurs s'ajoutent aux coordonnées de l'astéroïde. Un déplacement de l'astéroïde consiste donc à additionner chaque composante du vecteur avec la coordonnée correspondante, pour obtenir les nouvelles coordonnées de l'astéroïde. 
