@@ -1,0 +1,7 @@
+"C:\Program Files\JetBrains\CLion 2023.2.1\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug --profiling-format=google-trace --profiling-output=CMakeFiles\clion-event-trace.json -G "CodeBlocks - MinGW Makefiles" -S "C:\Users\Sharper8\OneDrive - Efrei\L3-APP\Efrei\S5\Prog C\Fork Projet\cpp-rs-group-2\projet\projetWindows" -B "C:\Users\Sharper8\OneDrive - Efrei\L3-APP\Efrei\S5\Prog C\Fork Projet\cpp-rs-group-2\projet\projetWindows\cmake-build-debug-event-trace"
+CMake Error at CMakeLists.txt:4:
+  Parse error.  Expected a command name, got unquoted argument with text
+  "<<<<<<<".
+
+
+-- Configuring incomplete, errors occurred!

@@ -1,0 +1,3 @@
+C:/Users/Sharper8/OneDrive - Efrei/L3-APP/Efrei/S5/Prog C/Fork Projet/cpp-rs-group-2/projet/projetWindows/cmake-build-debug-event-trace/CMakeFiles/SDLTEST.dir
+C:/Users/Sharper8/OneDrive - Efrei/L3-APP/Efrei/S5/Prog C/Fork Projet/cpp-rs-group-2/projet/projetWindows/cmake-build-debug-event-trace/CMakeFiles/edit_cache.dir
+C:/Users/Sharper8/OneDrive - Efrei/L3-APP/Efrei/S5/Prog C/Fork Projet/cpp-rs-group-2/projet/projetWindows/cmake-build-debug-event-trace/CMakeFiles/rebuild_cache.dir

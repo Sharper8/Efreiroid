@@ -39,7 +39,7 @@ Le facteur de poussée correspond ici à la longueur de l'hypoténuse, et les lo
 
 [source,C++]
 ----
-double angle; 
+double m_angle; 
 ----
  
 Implémentez les méthodes suivantes : 

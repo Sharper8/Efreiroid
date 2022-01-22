@@ -11,8 +11,7 @@
 
 using namespace std;
 
-int WinMain(int argc, char* argv[])
-{
+int WinMain(int argc, char* argv[]) {
     //debug value
     bool DEBUG = true;
     //initialisation of the random function
@@ -22,5 +21,5 @@ int WinMain(int argc, char* argv[])
     Controller controller(60, 50, 10);
     controller.LaunchGame();
     cout << "end of the game" << endl;
-     return 0;
+    return 0;
 }

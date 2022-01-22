@@ -14,7 +14,6 @@ set(
 )
 
 set(
-
     HEADER
     framework.hpp
     framework.cpp
@@ -32,6 +31,7 @@ set(
     View.h
     Controller.cpp
     Controller.h
+
 )
 
 find_package(SDL2 REQUIRED)

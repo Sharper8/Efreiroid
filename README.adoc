@@ -47,7 +47,9 @@ include::Seance_5/README.adoc[tag=OO]
 === Séance 6
 include::Seance_6/README.adoc[tag=OO]
 
-
+=======
+=== Séance 7
+include::Seance_7/README.adoc[tag=OO]
 
 
 == Pour débuter
