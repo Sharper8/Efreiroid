@@ -81,7 +81,6 @@ void FlyingObject::Move(double screenWidth, double screenHeight) {
     if (y > screenHeight) {
         y = 0;
     }
-
     if (y < 0) {
         y = screenHeight;
     }

@@ -24,6 +24,12 @@ Controller::~Controller() {
 
 
 // methods§
+
+//function to transform deg in rad
+double degvrad(double degrees) {
+    return degrees * M_PI / 180.0;
+}
+
 bool Controller::getIsRunning() {
     return this->isRunning;
 }
@@ -50,6 +56,8 @@ void Controller::LaunchGame() {
         }
         if (input == SDLK_DOWN) {
             //decelerate
+            model->spaceship->SetXSpeed(model->spaceship->GetXSpeed() - cos(degvrad(model->spaceship->GetAngle())) * 0.65);
+            model->spaceship->SetYSpeed(model->spaceship->GetYSpeed() - sin(degvrad(model->spaceship->GetAngle())) * 0.65);
             model->decelerate();
         }
         if (input == SDLK_LEFT) {

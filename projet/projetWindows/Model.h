@@ -26,7 +26,6 @@ class Model {
     int screenWidth;
     int screenHeight;
     Framework *framework;
-    Spaceship* spaceship;
     vector<Missile *> missileList;
     vector<Asteroid *> asteroidList;
 
@@ -55,6 +54,8 @@ public:
     void rotate(int angle);
 
     void shoot();
+
+    Spaceship* spaceship;
 };
 
 #endif //SDLTEST_MODEL_H

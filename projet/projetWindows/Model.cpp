@@ -84,9 +84,9 @@ void Model::setIsRunning(bool running) {
 // methods
 void Model::accelerate() {
      spaceship->SetXSpeed(spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 1.35);
-     cout << spaceship->GetYSpeed() << endl;
+//     cout << spaceship->GetYSpeed() << endl;
      spaceship->SetYSpeed(spaceship->GetYSpeed() - cos(deg2rad(spaceship->GetAngle())) * 1.35);
-    cout << spaceship->GetYSpeed() << endl;
+//     cout << spaceship->GetYSpeed() << endl;
 }
 
 void Model::decelerate() {
@@ -106,18 +106,20 @@ void Model::shoot() {
 }
 
 void Model::update() {
-    //check for.llisions in both lists
+    //check for collisions in both lists
     checkCollision(this->asteroidList, this->missileList);
      //update the positions of all the elements
 //    spaceship->SetXSpeed(50);
 //    framework->DrawShip(spaceship->GetX(), spaceship->GetY(), spaceship->GetAngle()+90, 0, false);
+    spaceship->Move(screenWidth, screenHeight);
+    framework->DrawShip(spaceship->GetX(), spaceship->GetY(), spaceship->GetAngle()+90, 0, false);
     for (int i = 0; i < asteroidList.size(); ++i) {
         asteroidList[i]->Move(screenWidth, screenHeight);
-        spaceship->Move(screenWidth, screenHeight);
-        framework->DrawShip(spaceship->GetX(), spaceship->GetY(), spaceship->GetAngle()+90, 0, false);
     }
     for (int i = 0; i < missileList.size(); ++i) {
         missileList[i]->Move(screenWidth, screenHeight);
+//        cout << missileList[i]->GetX() << endl;
+//        cout << " missile boujé  \n" << endl;
     }
     framework->Update();
 }
@@ -128,10 +130,14 @@ vector<FlyingObject *> Model::getAllFlyingObjects() {
     allFlyingObjects.push_back(spaceship);
     for (int i = 0; i < asteroidList.size(); ++i) {
         allFlyingObjects.push_back(asteroidList[i]);
+        //TODO enelever les cout
+        cout<<"j'envoie "<<asteroidList.size()<<" asteroides";
     }
     for (int i = 0; i < missileList.size(); ++i) {
         allFlyingObjects.push_back(missileList[i]);
+        cout<<"j'envoie "<<missileList.size()<<" missiles";
     }
+    cout<<"j'envoie "<<allFlyingObjects.size()<<" objets en tout";
     return allFlyingObjects;
 }
 
