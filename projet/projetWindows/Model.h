@@ -1,7 +1,3 @@
-//
-// Created by Sharper8 on 06/10/2023.
-//
-
 #include "View.h"
 #include "framework.hpp"
 #include <iostream>
@@ -21,14 +17,10 @@ class Model {
     // private section
     private:
     // attributes
-    bool debug;
-    double missilesize;
-    bool isRunning;
+    double missileSize;
     int screenWidth;
     int screenHeight;
     Framework *framework;
-    vector<Missile *> missileList;
-    vector<Asteroid *> asteroidList;
 
     // public section
 public:
@@ -37,16 +29,10 @@ public:
     // destructor
     ~Model();
 
-    //optional methods
-    bool getDebug();
-    void SetDebug(bool b);
-
-    void setIsRunning(bool running);
-
     // methods
     void accelerate();
 
-    void update();
+    int update();
 
     std::vector<FlyingObject*> getAllFlyingObjects();
 
@@ -56,7 +42,10 @@ public:
 
     void shoot();
 
+    //todo remettre en priové
     Spaceship* spaceship;
+    vector<Missile *> missileList;
+    vector<Asteroid *> asteroidList;
 };
 
 #endif //SDLTEST_MODEL_H

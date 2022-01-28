@@ -5,7 +5,9 @@
 #include "FlyingObject.h"
 #include <cmath>
 
-Asteroid::Asteroid(double x, double y, double size, double xSpeed, double ySpeed, double angle): FlyingObject(x, y, size, xSpeed, ySpeed,angle){}
+Asteroid::Asteroid(double x, double y, double size, double xSpeed, double ySpeed, double angle): FlyingObject(x, y, size, xSpeed, ySpeed,angle){
+    nbExplosionsLeft = size/50;
+}
 
 string Asteroid::GetTypeName() {
     return "Asteroid";
@@ -14,8 +16,6 @@ string Asteroid::GetTypeName() {
 void Asteroid::Move(double screenWidth, double screenHeight) {
     this->SetX(this->GetX() + this->GetXSpeed());
     this->SetY(this->GetY() + this->GetYSpeed());
-//    y += ySpeed;
-//    x += xSpeed;
     if (x > screenWidth) {
         x=0;
     }
@@ -28,4 +28,18 @@ void Asteroid::Move(double screenWidth, double screenHeight) {
     if (y < 0) {
         y=screenHeight;
     }
+}
+
+int Asteroid::GetnBExplosionsLeft() {
+    return nbExplosionsLeft;
+}
+
+Asteroid* Asteroid::Explode(double xSpeed, double ySpeed) {
+    size = size / 2;
+    nbExplosionsLeft--;
+    //create a new asteroid
+    auto *newAsteroid = new Asteroid(x, y, size, xSpeed, ySpeed,angle);
+    //add it to the list
+    return newAsteroid;
+
 }

@@ -107,5 +107,5 @@ bool FlyingObject::Collide(FlyingObject *o1, FlyingObject *o2) {
     // delete both objects if they collide
     // -------
     double distance = sqrt(pow(o1->GetX() - o2->GetX(), 2) + pow(o1->GetY() - o2->GetY(), 2));
-    return distance < o1->GetSize() + o2->GetSize();
+    return distance < o1->GetSize()/2 + o2->GetSize()/2;
 }

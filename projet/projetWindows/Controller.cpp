@@ -17,7 +17,15 @@ Controller::Controller(int fps, int shipSize, int missileSize) {
 }
 
 //destructor
-Controller::~Controller() {
+Controller::~Controller() {//delete all the elements of the lists
+    delete this->model->spaceship; //TODO erreur sur cette ligne
+    for (auto & i : model->asteroidList)
+        delete i;
+
+    for (auto & i : model->missileList) {
+        delete i;
+    }
+
     delete model;
     delete view;
 }
@@ -35,7 +43,7 @@ void Controller::LaunchGame() {
     int stopcond=0;
     while (isRunning && !stopcond) {
         //get user input
-        int input = framework->GetInput();
+        int input = framework->GetInput(); //TODO get mutliple inputs
         //input treatment for the spaceship controls
         switch (input) {
             case SDLK_UP:
@@ -63,8 +71,7 @@ void Controller::LaunchGame() {
                 break;
 
         }
-//        stopcond= model->update();
-        model->update();
+        stopcond= model->update();
         view->update(model->getAllFlyingObjects());
     }
     if (stopcond==1){

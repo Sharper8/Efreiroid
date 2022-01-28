@@ -20,17 +20,12 @@ using namespace std;
 
 // constructor
 Model::Model(int screenWidth, int screenHeight, int shipSize, int missileSize, Framework *framework) {
-    //DEBUG values
-    this->debug = false;
-    this->isRunning = true;
     this->screenWidth = screenWidth;
     this->screenHeight = screenHeight;
     this->framework = framework;
-    this->missilesize = missileSize;
-
+    this->missileSize = missileSize;
     //initialisation of the random
     srand(static_cast<unsigned>(time(NULL)));
-
     //define spaceship
     this->spaceship = new Spaceship(screenWidth / 2, screenHeight / 2, shipSize, 0, 0, 0);
     //vector for missiles
@@ -70,11 +65,6 @@ Model::Model(int screenWidth, int screenHeight, int shipSize, int missileSize, F
         //assign those random values and spawn the asteroid
         asteroidList.push_back(new Asteroid(X, Y,rand() % 100 + 50, XSpeed,YSpeed,angle));
     }
-
-}
-
-void Model::setIsRunning(bool running) {
-    this->isRunning = running;
 }
 
 void Model::accelerate() {
@@ -104,11 +94,12 @@ void Model::shoot() {
     //base velocity of the missile
     double xspeed = spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle())) * 10;
     double yspeed = spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 10;
-    auto TEST = new Missile(xpos, ypos, this->missilesize, xspeed, yspeed,spaceship->GetAngle());
-    missileList.push_back(TEST);
+//    auto msl = new Missile(xpos, ypos, missileSize, xspeed, yspeed, spaceship->GetAngle());
+    missileList.push_back(new Missile(xpos, ypos, missileSize, xspeed, yspeed, spaceship->GetAngle()));
 }
 
-void Model::update() {
+int Model::update() {
+    //TODO pourquoi la luminosité change en fonction du nbr d'asteroid
     //check for collisions in both lists
     for (int i = 0 ; i<asteroidList.size();++i){
         for (int j = 0; j < missileList.size(); ++j) {
@@ -117,25 +108,29 @@ void Model::update() {
                 // delete the asteroid and the missile
                 delete asteroidList[i];
                 delete missileList[j];
+
                 // remove the asteroid and the missile from the list
                 asteroidList.erase(asteroidList.begin() + i);
                 missileList.erase(missileList.begin() + j);
             }
-            //collision between the spaceship and the asteroid
-//
-//            if (FlyingObject::Collide(asteroidList[i],spaceship)){
-//                if (spaceship->GetShield() == 0){
-//                    return -1;
-//                }
-//                else{
-//                    spaceship->SetShield(spaceship->GetShield()-1);
-//                }
-//            }
-//            else{
-//                return 0;
-//            }
+        }
+        //collision between the spaceship and the asteroid
+        if (!spaceship->GetInvincible()) {
+            if (FlyingObject::Collide(asteroidList[i], spaceship)) {
+                if (spaceship->GetShield() == 0) {
+                    return -1;
+                } else {
+                    spaceship->SetShield(spaceship->GetShield() - 1);
+                    spaceship->SetInvincibleFor(1);
+                    //                spaceship->SetInvincibleFor(true);
+                }
+            }
         }
     }
+    if (spaceship->GetInvincible()) {
+        spaceship->UpdateInvincibilityStatus();
+    }
+
     //update elements on the canvas
     spaceship->Move(screenWidth, screenHeight);
     for (auto & i : asteroidList) {
@@ -145,12 +140,14 @@ void Model::update() {
         i->Move(screenWidth, screenHeight);
     }
     framework->Update();
+    return 0;
 }
 
 vector<FlyingObject *> Model::getAllFlyingObjects() {
     //return the list of all the flying objects
     vector<FlyingObject *> allFlyingObjects;
     allFlyingObjects.push_back(spaceship);
+//    vector<FlyingObject *> v(asteroidList.begin(), asteroidList.end()); TODO pourquoi ça marche pas ?
     for (auto & i : asteroidList) {
         allFlyingObjects.push_back(i);
     }
@@ -160,15 +157,4 @@ vector<FlyingObject *> Model::getAllFlyingObjects() {
     return allFlyingObjects;
 }
 
-Model::~Model() {
-    //delete all the elements of the lists
-    delete spaceship;
-    for (auto & i : asteroidList)
-        delete i;
-
-    for (auto & i : missileList) {
-        delete i;
-    }
-}
-
-//TODO pourquoi la luminosité change en fonction du nbr d'asteroid
+Model::~Model() = default;
