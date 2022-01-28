@@ -8,20 +8,15 @@
 
 
 class Spaceship:public FlyingObject {
+    private:
+        int shield= 10;
+
     public:
     // Constructor
-    ///////////////
-    Spaceship(double x, double y, double size, double xSpeed, double ySpeed, double angle);
-
-    /////////////////////////
-    // Déplacement de l'objet
-    // déplace selon le vecteur de vitesse de l'objet
-    //void Move(double screenWidth, double screenHeight) override;
-
+    Spaceship(double x, double y, double size, double xSpeed, double ySpeed,double angle);
     string GetTypeName() override;
-
-    //void Move() override;
-//    void SetxSpeed(double xSpeed) ;
+    int GetShield();
+    void SetShield(int i);
 };
 
 

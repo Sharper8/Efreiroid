@@ -32,7 +32,8 @@ void Controller::setIsRunning(bool running) {
 }
 
 void Controller::LaunchGame() {
-    while (isRunning) {
+    int stopcond=0;
+    while (isRunning && !stopcond) {
         //get user input
         int input = framework->GetInput();
         //input treatment for the spaceship controls
@@ -55,12 +56,24 @@ void Controller::LaunchGame() {
             case SDLK_ESCAPE:
                 isRunning = false;
                 break;
+            case SDLK_p:
+                stopcond=1;
+                break;
             default:
                 break;
 
         }
+//        stopcond= model->update();
         model->update();
         view->update(model->getAllFlyingObjects());
+    }
+    if (stopcond==1){
+//        view->displayWin();
+        cout<<"win"<<endl;
+    }
+    else{
+//        view->displayLoose();
+        cout<<"lost"<<endl;
     }
     delete framework;
     delete model;

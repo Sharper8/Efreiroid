@@ -7,6 +7,8 @@ using namespace std;
 #ifndef SDLTEST_FLYINGOBJECT_H
 #define SDLTEST_FLYINGOBJECT_H
 
+double deg2rad(double d);
+
 //define flying object class
 class FlyingObject {
 
@@ -19,11 +21,10 @@ class FlyingObject {
     double angle;
 
     public:
-    //constructeur par défaut
-    FlyingObject(double x, double y, double size, double xSpeed, double ySpeed);
-//    FlyingObject(double x, double y, double size, double xSpeed, double ySpeed);
+    //constructor
+    FlyingObject(double x, double y, double size, double xSpeed, double ySpeed,double angle);
 
-    //destructeur
+    //destructor
     ~FlyingObject();
 
     //getters
@@ -39,7 +40,7 @@ class FlyingObject {
     void SetXSpeed(double xSpeed);
     void SetYSpeed(double ySpeed);
     void SetSize(double size);
-    void SetAngle(double angle);
+    void SetAngle(double d);
 
     virtual void Move();
 

@@ -4,12 +4,12 @@
 #include "Missile.h"
 
 
-Missile::Missile(double x, double y,double size, double xSpeed, double ySpeed):FlyingObject(x, y, size, xSpeed, ySpeed){}
+Missile::Missile(double x, double y,double size, double xSpeed, double ySpeed,double angle):FlyingObject(x, y, size, xSpeed, ySpeed,angle){}
 
 void Missile::Move(double screenWidth, double screenHeight) {
-    // -------TODO implémenter la destruciton quand sortie
     y += ySpeed;
     x += xSpeed;
+    // -------TODO implémenter la destruction en sortie
     if (x > screenWidth) {
         x=0;
     }
@@ -22,6 +22,7 @@ void Missile::Move(double screenWidth, double screenHeight) {
     if (y < 0) {
         y=screenHeight;
     }
+
 }
 
 string Missile::GetTypeName() {

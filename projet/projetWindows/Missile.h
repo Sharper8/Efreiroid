@@ -13,7 +13,7 @@ class Missile:public FlyingObject {
 
 public:
 
-    Missile(double x, double y, double size, double xSpeed, double ySpeed);
+    Missile(double x, double y, double size, double xSpeed, double ySpeed, double angle);
 
     void Move(double screenWidth, double screenHeight) override;
     string GetTypeName() override;

@@ -6,16 +6,21 @@
 #include <cmath>
 
 
-//constructeur
+//function to transform deg in rad
+double deg2rad(double degrees) {
+    return degrees * M_PI / 180.0;
+}
 
-FlyingObject::FlyingObject(double x, double y, double size, double xSpeed, double ySpeed) {
+//constructor
+FlyingObject::FlyingObject(double x, double y, double size, double xSpeed, double ySpeed,double angle) {
     this->x = x;
     this->y = y;
     this->size = size;
     this->xSpeed = xSpeed;
     this->ySpeed = ySpeed;
-
+    this->angle = angle;
 }
+
 //getters
 double FlyingObject::GetX() {
     return x;
@@ -67,10 +72,6 @@ void FlyingObject::Move() {
 }
 
 void FlyingObject::Move(double screenWidth, double screenHeight) {
-    // Déplacement de l'objet avec réentrée
-    // déplace selon le vecteur de vitesse de l'objet
-    // en cas de sortie des limites de l'écran, fait réapparaitre l'objet
-    // de l'autre côté
     // -------
     y += ySpeed;
     x += xSpeed;
@@ -98,8 +99,8 @@ double FlyingObject::GetAngle() {
     return angle;
 }
 
-void FlyingObject::SetAngle(double angle) {
-    this->angle = angle;
+void FlyingObject::SetAngle(double d) {
+    this->angle = d;
 }
 
 bool FlyingObject::Collide(FlyingObject *o1, FlyingObject *o2) {

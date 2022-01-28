@@ -10,9 +10,12 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+#include <random>
 #include "missile.h"
 #include "asteroid.h"
 #include "spaceship.h"
+#include "FlyingObject.h"
+
 using namespace std;
 
 // constructor
@@ -32,21 +35,42 @@ Model::Model(int screenWidth, int screenHeight, int shipSize, int missileSize, F
     this->spaceship = new Spaceship(screenWidth / 2, screenHeight / 2, shipSize, 0, 0, 0);
     //vector for missiles
     this->missileList = vector<Missile*> ();
-
     //init a list of asteroids with random speed, size and position
     this-> asteroidList = vector<Asteroid*> ();
-    double tabDirections [2] = {1, -1};
+    // create a vector of vector that stores the coordinates of 9 even zones on the screen, exclude the middle of the screen
+    vector<vector<int>> zones = {{screenWidth / 3, 0, 0, screenHeight / 3},
+                                 {screenWidth / 3, 0, screenHeight / 3, screenHeight * 2 / 3},
+                                 {screenWidth / 3, 0, screenHeight * 2 / 3, screenHeight},
+                                 {screenWidth * 2 / 3, screenWidth, 0, screenHeight / 3},
+                                 {screenWidth * 2 / 3, screenWidth, screenHeight / 3, screenHeight * 2 / 3},
+                                 {screenWidth * 2 / 3, screenWidth, screenHeight * 2 / 3, screenHeight},
+                                 {screenWidth, screenWidth * 2 / 3, 0, screenHeight / 3},
+                                 {screenWidth, screenWidth * 2 / 3, screenHeight / 3, screenHeight * 2 / 3},
+                                 {screenWidth, screenWidth * 2 / 3, screenHeight * 2 / 3, screenHeight}};
+    //init random seed
+    std::default_random_engine generator;//TODO changer ce truc ?
+    // Create a uniform_int_distribution for choosing a random zone
+    std::uniform_int_distribution<int> distribution(0, zones.size() - 1);
+    //generate 10 asteroids
     for (int i = 0; i < 10; ++i) {
-        int x = rand() % screenWidth;
-        int y = rand() % screenHeight;
-        int size = rand() % 100 + 50;
-        asteroidList.push_back(new Asteroid(x, y,size, tabDirections[rand() % 2] * (rand() % 15 + 2),tabDirections[rand() % 2] * (rand() % 10 + 2)));
+        // choose a random zone from the vector of zones with uniform_int_distribution() function
+        // generate the random index
+        int randomZoneIndex = distribution(generator);
+        std::vector<int> selectedZone = zones[randomZoneIndex];
+        //choose a random set of coordinates base on the zones coordinates of the chosen zone using uniform_real_distribution () funciton
+        std::uniform_real_distribution<double> xDistribution(selectedZone[1], selectedZone[0]);
+        std::uniform_real_distribution<double> yDistribution(selectedZone[2], selectedZone[3]);
+        //generate a random angle between-180 and 180° using uniform_int_distribution
+        double angle = distribution(generator) * 40 - 180;
+        // Generate random x and y coordinates
+        double X = xDistribution(generator);
+        double Y = yDistribution(generator);
+        double XSpeed = cos(deg2rad(angle))*5;
+        double YSpeed = sin(deg2rad(angle))*5;
+        //assign those random values and spawn the asteroid
+        asteroidList.push_back(new Asteroid(X, Y,rand() % 100 + 50, XSpeed,YSpeed,angle));
     }
-}
 
-//function to transform deg in rad
-double deg2rad(double degrees) {
-    return degrees * M_PI / 180.0;
 }
 
 void Model::setIsRunning(bool running) {
@@ -80,7 +104,7 @@ void Model::shoot() {
     //base velocity of the missile
     double xspeed = spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle())) * 10;
     double yspeed = spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 10;
-    auto TEST = new Missile(xpos, ypos, this->missilesize, xspeed, yspeed);
+    auto TEST = new Missile(xpos, ypos, this->missilesize, xspeed, yspeed,spaceship->GetAngle());
     missileList.push_back(TEST);
 }
 
@@ -88,22 +112,37 @@ void Model::update() {
     //check for collisions in both lists
     for (int i = 0 ; i<asteroidList.size();++i){
         for (int j = 0; j < missileList.size(); ++j) {
+            //collision between the missile and the asteroid
             if (FlyingObject::Collide(asteroidList[i], missileList[j])) {
                 // delete the asteroid and the missile
                 delete asteroidList[i];
                 delete missileList[j];
-                asteroidList.erase(asteroidList.begin()+i);
-                missileList.erase(missileList.begin()+j);
+                // remove the asteroid and the missile from the list
+                asteroidList.erase(asteroidList.begin() + i);
+                missileList.erase(missileList.begin() + j);
             }
+            //collision between the spaceship and the asteroid
+//
+//            if (FlyingObject::Collide(asteroidList[i],spaceship)){
+//                if (spaceship->GetShield() == 0){
+//                    return -1;
+//                }
+//                else{
+//                    spaceship->SetShield(spaceship->GetShield()-1);
+//                }
+//            }
+//            else{
+//                return 0;
+//            }
         }
     }
     //update elements on the canvas
     spaceship->Move(screenWidth, screenHeight);
-    for (int i = 0; i < asteroidList.size(); ++i) {
-        asteroidList[i]->Move(screenWidth, screenHeight);
+    for (auto & i : asteroidList) {
+        i->Move(screenWidth, screenHeight);
     }
-    for (int i = 0; i < missileList.size(); ++i) {
-        missileList[i]->Move(screenWidth, screenHeight);
+    for (auto & i : missileList) {
+        i->Move(screenWidth, screenHeight);
     }
     framework->Update();
 }
@@ -112,11 +151,11 @@ vector<FlyingObject *> Model::getAllFlyingObjects() {
     //return the list of all the flying objects
     vector<FlyingObject *> allFlyingObjects;
     allFlyingObjects.push_back(spaceship);
-    for (int i = 0; i < asteroidList.size(); ++i) {
-        allFlyingObjects.push_back(asteroidList[i]);
+    for (auto & i : asteroidList) {
+        allFlyingObjects.push_back(i);
     }
-    for (int i = 0; i < missileList.size(); ++i) {
-        allFlyingObjects.push_back(missileList[i]);
+    for (auto & i : missileList) {
+        allFlyingObjects.push_back(i);
     }
     return allFlyingObjects;
 }
@@ -124,10 +163,12 @@ vector<FlyingObject *> Model::getAllFlyingObjects() {
 Model::~Model() {
     //delete all the elements of the lists
     delete spaceship;
-    for (int i = 0; i < asteroidList.size(); ++i) {
-        delete asteroidList[i];
-    }
-    for (int i = 0; i < missileList.size(); ++i) {
-        delete missileList[i];
+    for (auto & i : asteroidList)
+        delete i;
+
+    for (auto & i : missileList) {
+        delete i;
     }
 }
+
+//TODO pourquoi la luminosité change en fonction du nbr d'asteroid

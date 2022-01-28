@@ -14,8 +14,10 @@ public:
     // Constructeur
     // -------
 
-    Asteroid(double x, double y, double size, double xSpeed, double ySpeed);
+    Asteroid(double x, double y, double size, double xSpeed, double ySpeed,double angle);
     string GetTypeName() override;
+    void Move(double screenWidth, double screenHeight) override;
+
 };
 
 #endif //SDLTEST_ASTEROID_H
