@@ -12,7 +12,6 @@ string Asteroid::GetTypeName() {
 }
 
 void Asteroid::Move(double screenWidth, double screenHeight) {
-    // -------TODO implémenter la destruction en sortie
     this->SetX(this->GetX() + this->GetXSpeed());
     this->SetY(this->GetY() + this->GetYSpeed());
 //    y += ySpeed;
