@@ -40,41 +40,47 @@ void Controller::setIsRunning(bool running) {
 }
 
 void Controller::LaunchGame() {
-    int stopcond=0;
-    while (isRunning && !stopcond) {
+    //todo optimiser avec isrunning
+    int quitPressed=0;
+    while (isRunning && !quitPressed) {
+//    while ( !quitPressed) {
         //get user input
-        int input = framework->GetInput(); //TODO get mutliple inputs
-        //input treatment for the spaceship controls
-        switch (input) {
-            case SDLK_UP:
-                model->accelerate();
-                break;
-            case SDLK_DOWN:
-                model->decelerate();
-                break;
-            case SDLK_LEFT:
-                model->rotate(-10);
-                break;
-            case SDLK_RIGHT:
-                model->rotate(10);
-                break;
-            case SDLK_SPACE:
-                model->shoot();
-                break;
-            case SDLK_ESCAPE:
-                isRunning = false;
-                break;
-            case SDLK_p:
-                stopcond=1;
-                break;
-            default:
-                break;
-
-        }
-        stopcond= model->update();
+        int input = framework->GetInput();
+//        int input2 = framework->GetInput();
+        //TODO get mutliple inputs
+//        int tabInputs[2] = {input, input2};
+//        for (int tabinput : tabInputs) {
+            //input treatment for the spaceship controls
+            switch (input) {
+                case SDLK_UP:
+                    model->accelerate();
+                    break;
+                case SDLK_DOWN:
+                    model->decelerate();
+                    break;
+                case SDLK_LEFT:
+                    model->rotate(-20);
+                    break;
+                case SDLK_RIGHT:
+                    model->rotate(20);
+                    break;
+                case SDLK_SPACE:
+                    model->shoot();
+                    break;
+                case SDLK_ESCAPE:
+                    isRunning = false;
+                    break;
+                case SDLK_q:
+                    quitPressed=1;
+                    break;
+                default:
+                    break;
+            }
+//        }
+        quitPressed= model->update();
         view->update(model->getAllFlyingObjects());
     }
-    if (stopcond==1){
+    if (quitPressed == 1){
 //        view->displayWin();
         cout<<"win"<<endl;
     }

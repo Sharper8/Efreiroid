@@ -17,12 +17,10 @@ class Controller {
     Model* model;
     Framework* framework;
     View* view;
-    bool isRunning;
-    // public section
+    bool isRunning = true;
+
     public:
-    // constructor
     Controller(int fps,int shipSize,int missileSize);
-    // destructor
     ~Controller();
 
     void setIsRunning(bool running);

@@ -68,16 +68,18 @@ Model::Model(int screenWidth, int screenHeight, int shipSize, int missileSize, F
 }
 
 void Model::accelerate() {
-    double new_xSpeed = spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle())) * 1.35;
-    double new_ySpeed = spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 1.35;
+    //TODO faire en sorte que la vitesse max soit 10
+    double new_xSpeed = spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle())) * 2;
+    double new_ySpeed = spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 2;
     spaceship->SetXSpeed(new_xSpeed);
     spaceship->SetYSpeed(new_ySpeed);
 }
 
 // methods
 void Model::decelerate() {
-        double new_ySpeed = spaceship->GetYSpeed() - sin(deg2rad(spaceship->GetAngle())) * 1.35;
-        double new_xSpeed = spaceship->GetXSpeed() - cos(deg2rad(spaceship->GetAngle())) * 0.65;
+    //TODO faire en sorte que la vitesse max soit 10
+        double new_ySpeed = spaceship->GetYSpeed() - sin(deg2rad(spaceship->GetAngle())) * 2;
+        double new_xSpeed = spaceship->GetXSpeed() - cos(deg2rad(spaceship->GetAngle())) * 2;
         spaceship->SetXSpeed(new_xSpeed);
         spaceship->SetYSpeed(new_ySpeed);
 }
@@ -99,18 +101,27 @@ void Model::shoot() {
 }
 
 int Model::update() {
-    //TODO pourquoi la luminosité change en fonction du nbr d'asteroid
+    //TODO pourquoi la luminosité change ou scintille en fonction du nbr d'asteroid
+    framework->Update();
     //check for collisions in both lists
     for (int i = 0 ; i<asteroidList.size();++i){
         for (int j = 0; j < missileList.size(); ++j) {
             //collision between the missile and the asteroid
             if (FlyingObject::Collide(asteroidList[i], missileList[j])) {
                 // delete the asteroid and the missile
-                delete asteroidList[i];
+                //if explosiosn left in asteroid
+                if (asteroidList[i]->GetnBExplosionsLeft() <= 0) {
+                    delete asteroidList[i];
+                    asteroidList.erase(asteroidList.begin() + i);
+                }
+                else {
+                    //create a new asteroid
+                    Asteroid *newAsteroid = asteroidList[i]->Explode(missileList[j]->GetXSpeed(),
+                                                                     missileList[j]->GetYSpeed());
+                    //add it to the list
+                    asteroidList.push_back(newAsteroid);
+                }
                 delete missileList[j];
-
-                // remove the asteroid and the missile from the list
-                asteroidList.erase(asteroidList.begin() + i);
                 missileList.erase(missileList.begin() + j);
             }
         }
@@ -130,7 +141,6 @@ int Model::update() {
     if (spaceship->GetInvincible()) {
         spaceship->UpdateInvincibilityStatus();
     }
-
     //update elements on the canvas
     spaceship->Move(screenWidth, screenHeight);
     for (auto & i : asteroidList) {
@@ -139,7 +149,7 @@ int Model::update() {
     for (auto & i : missileList) {
         i->Move(screenWidth, screenHeight);
     }
-    framework->Update();
+//    framework->Update(); //todo reflechir si c'est mieux au dessus ou a la fin ( les return font que ça update pas)
     return 0;
 }
 

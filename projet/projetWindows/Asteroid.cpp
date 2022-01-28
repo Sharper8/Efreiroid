@@ -37,8 +37,12 @@ int Asteroid::GetnBExplosionsLeft() {
 Asteroid* Asteroid::Explode(double xSpeed, double ySpeed) {
     size = size / 2;
     nbExplosionsLeft--;
+    //change the speed of the new asteroids to be the same as the old one but with an impact of the missile
+    this->xSpeed = this->xSpeed+xSpeed;
+    this->ySpeed = this->ySpeed+ySpeed;
     //create a new asteroid
-    auto *newAsteroid = new Asteroid(x, y, size, xSpeed, ySpeed,angle);
+    auto *newAsteroid = new Asteroid(x, y, size, this->xSpeed-xSpeed, this->ySpeed-ySpeed,angle);
+
     //add it to the list
     return newAsteroid;
 

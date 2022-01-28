@@ -9,7 +9,7 @@ Missile::Missile(double x, double y,double size, double xSpeed, double ySpeed,do
 void Missile::Move(double screenWidth, double screenHeight) {
     y += ySpeed;
     x += xSpeed;
-    // -------TODO implémenter la destruction en sortie
+    // TODO implémenter la destruction en sortie
     if (x > screenWidth) {
         x=0;
     }
