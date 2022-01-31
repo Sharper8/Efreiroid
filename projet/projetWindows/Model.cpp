@@ -160,7 +160,6 @@ int Model::update() {
             }
         }
         //collision between the spaceship and the asteroid
-        //TODO pas d'overlap entre les asteroid et le vaisseau
         if (FlyingObject::Collide(asteroidList[i], spaceship)) {
             if (!spaceship->GetInvincible()) {
                 if (spaceship->GetShield() <= 0.0) {
