@@ -6,7 +6,7 @@
 #include <cmath>
 
 Asteroid::Asteroid(double x, double y, double size, double xSpeed, double ySpeed, double angle): FlyingObject(x, y, size, xSpeed, ySpeed,angle){
-    nbExplosionsLeft = size/50;
+    nbExplosionsLeft = size/100;
 }
 
 string Asteroid::GetTypeName() {

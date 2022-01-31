@@ -9,22 +9,16 @@ Missile::Missile(double x, double y,double size, double xSpeed, double ySpeed,do
 void Missile::Move(double screenWidth, double screenHeight) {
     y += ySpeed;
     x += xSpeed;
-    // TODO implémenter la destruction en sortie
-    if (x > screenWidth) {
-        x=0;
+    //if the missile is out of the screen, it is destroyed
+    if (x < 0 || x > screenWidth || y < 0 || y > screenHeight) {
+        outOfScreen = true;
     }
-    if (x < 0) {
-        x=screenWidth;
-    }
-    if (y > screenHeight) {
-        y=0;
-    }
-    if (y < 0) {
-        y=screenHeight;
-    }
-
 }
 
 string Missile::GetTypeName() {
     return "Missile";
+}
+
+bool Missile::GetOutofScreen() {
+    return outOfScreen;
 }

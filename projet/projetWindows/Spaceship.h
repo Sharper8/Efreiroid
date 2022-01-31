@@ -18,7 +18,7 @@ public:
     // Constructor
     Spaceship(double x, double y, double size, double xSpeed, double ySpeed,double angle);
     //destructor
-    ~Spaceship();
+//    ~Spaceship();
     string GetTypeName() override;
     int GetShield();
     void SetShield(int i);

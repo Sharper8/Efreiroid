@@ -18,14 +18,17 @@ Controller::Controller(int fps, int shipSize, int missileSize) {
 
 //destructor
 Controller::~Controller() {//delete all the elements of the lists
-    delete this->model->spaceship; //TODO erreur sur cette ligne
+   //delete the spaceship
+    delete model->spaceship;
+
+    //delete the asteroids
     for (auto & i : model->asteroidList)
         delete i;
 
     for (auto & i : model->missileList) {
         delete i;
     }
-
+    delete framework;
     delete model;
     delete view;
 }
@@ -88,7 +91,8 @@ void Controller::LaunchGame() {
 //        view->displayLoose();
         cout<<"lost"<<endl;
     }
-    delete framework;
-    delete model;
-    delete view;
+
+//    delete framework;
+//    delete model;
+//    delete view;
 }

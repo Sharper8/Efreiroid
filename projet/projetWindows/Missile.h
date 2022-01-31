@@ -10,6 +10,7 @@
 
 class Missile:public FlyingObject {
     double size = size;
+    bool outOfScreen = false;
 
 public:
 
@@ -17,6 +18,7 @@ public:
 
     void Move(double screenWidth, double screenHeight) override;
     string GetTypeName() override;
+    bool GetOutofScreen();
 };
 
 

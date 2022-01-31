@@ -63,25 +63,49 @@ Model::Model(int screenWidth, int screenHeight, int shipSize, int missileSize, F
         double XSpeed = cos(deg2rad(angle))*5;
         double YSpeed = sin(deg2rad(angle))*5;
         //assign those random values and spawn the asteroid
-        asteroidList.push_back(new Asteroid(X, Y,rand() % 100 + 50, XSpeed,YSpeed,angle));
+        asteroidList.push_back(new Asteroid(X, Y,rand() % 200 + 75, XSpeed,YSpeed,angle));
     }
 }
 
 void Model::accelerate() {
-    //TODO faire en sorte que la vitesse max soit 10
+    //define the absolute speed of the spaceship
     double new_xSpeed = spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle())) * 2;
     double new_ySpeed = spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 2;
+    // if the speed is too high, set it to the max speed
+    if (new_xSpeed > 10) {
+        new_xSpeed = 10;
+    }
+    if (new_ySpeed > 10) {
+        new_ySpeed = 10;
+    }
+    if (new_xSpeed < -10) {
+        new_xSpeed = -10;
+    }
+    if (new_ySpeed < -10) {
+        new_ySpeed = -10;
+    }
     spaceship->SetXSpeed(new_xSpeed);
     spaceship->SetYSpeed(new_ySpeed);
 }
 
 // methods
 void Model::decelerate() {
-    //TODO faire en sorte que la vitesse max soit 10
-        double new_ySpeed = spaceship->GetYSpeed() - sin(deg2rad(spaceship->GetAngle())) * 2;
-        double new_xSpeed = spaceship->GetXSpeed() - cos(deg2rad(spaceship->GetAngle())) * 2;
-        spaceship->SetXSpeed(new_xSpeed);
-        spaceship->SetYSpeed(new_ySpeed);
+    double new_ySpeed = spaceship->GetYSpeed() - sin(deg2rad(spaceship->GetAngle())) * 2;
+    double new_xSpeed = spaceship->GetXSpeed() - cos(deg2rad(spaceship->GetAngle())) * 2;
+    if (new_xSpeed > 10) {
+        new_xSpeed = 10;
+    }
+    if (new_ySpeed > 10) {
+        new_ySpeed = 10;
+    }
+    if (new_xSpeed < -10) {
+        new_xSpeed = -10;
+    }
+    if (new_ySpeed < -10) {
+        new_ySpeed = -10;
+    }
+    spaceship->SetXSpeed(new_xSpeed);
+    spaceship->SetYSpeed(new_ySpeed);
 }
 
 void Model::rotate(int angle) {
@@ -90,6 +114,9 @@ void Model::rotate(int angle) {
 }
 
 void Model::shoot() {
+    if (missileList.size() > 2) {
+        return;
+    }
     //new missile object
     double xpos = spaceship->GetX();
     double ypos = spaceship->GetY();
@@ -101,11 +128,19 @@ void Model::shoot() {
 }
 
 int Model::update() {
+    //if there is no asteroid left, the player wins
+    if (asteroidList.empty()) {
+        return 1;
+    }
     //TODO pourquoi la luminosité change ou scintille en fonction du nbr d'asteroid
     framework->Update();
     //check for collisions in both lists
     for (int i = 0 ; i<asteroidList.size();++i){
         for (int j = 0; j < missileList.size(); ++j) {
+            if (missileList[j]->GetOutofScreen()) {
+                delete missileList[j];
+                missileList.erase(missileList.begin() + j);
+            }
             //collision between the missile and the asteroid
             if (FlyingObject::Collide(asteroidList[i], missileList[j])) {
                 // delete the asteroid and the missile

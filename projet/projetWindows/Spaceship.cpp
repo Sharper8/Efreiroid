@@ -43,5 +43,4 @@ void Spaceship::UpdateInvincibilityStatus() {
 
 }
 
-Spaceship::~Spaceship() = default;
 //TODO shield rechargeable ?
