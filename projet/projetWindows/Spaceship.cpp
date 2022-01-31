@@ -14,10 +14,10 @@ string Spaceship::GetTypeName() {
     return "Spaceship";
 }
 
-int Spaceship::GetShield() {
+double Spaceship::GetShield() {
     return shield;
 }
-void Spaceship::SetShield(int i) {
+void Spaceship::SetShield(double i) {
     this->shield = i;
 }
 
@@ -27,20 +27,14 @@ bool Spaceship::GetInvincible() {
 
 void Spaceship::SetInvincibleFor(double duration) {
     this->invincible = true;
-    //set invincibility end time "cxurrent time + 2 seconds"
+    //set invincibility end time "current time + duration (seconds)"
     invincibilityEndTime = std::chrono::steady_clock::now() + std::chrono::milliseconds(static_cast<int>(duration * 1000));
     this->warning = true;
 }
 
 void Spaceship::UpdateInvincibilityStatus() {
     if (invincible && std::chrono::steady_clock::now() >= invincibilityEndTime) {
-
         invincible = false;
         warning = false;
     }
-    //print how much time of invincibility is left
-//    cout << "invincibility end time: " << std::chrono::duration_cast<std::chrono::milliseconds>(invincibilityEndTime - std::chrono::steady_clock::now()).count() << endl;
-
 }
-
-//TODO shield rechargeable ?

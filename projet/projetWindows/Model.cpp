@@ -43,7 +43,7 @@ Model::Model(int screenWidth, int screenHeight, int shipSize, int missileSize, F
                                  {screenWidth, screenWidth * 2 / 3, screenHeight / 3, screenHeight * 2 / 3},
                                  {screenWidth, screenWidth * 2 / 3, screenHeight * 2 / 3, screenHeight}};
     //init random seed
-    std::default_random_engine generator;//TODO changer ce truc ?
+    std::default_random_engine generator;
     // Create a uniform_int_distribution for choosing a random zone
     std::uniform_int_distribution<int> distribution(0, zones.size() - 1);
     //generate 10 asteroids
@@ -123,7 +123,6 @@ void Model::shoot() {
     //base velocity of the missile
     double xspeed = spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle())) * 10;
     double yspeed = spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 10;
-//    auto msl = new Missile(xpos, ypos, missileSize, xspeed, yspeed, spaceship->GetAngle());
     missileList.push_back(new Missile(xpos, ypos, missileSize, xspeed, yspeed, spaceship->GetAngle()));
 }
 
@@ -144,7 +143,7 @@ int Model::update() {
             //collision between the missile and the asteroid
             if (FlyingObject::Collide(asteroidList[i], missileList[j])) {
                 // delete the asteroid and the missile
-                //if explosiosn left in asteroid
+                //if any explosion left in asteroid
                 if (asteroidList[i]->GetnBExplosionsLeft() <= 0) {
                     delete asteroidList[i];
                     asteroidList.erase(asteroidList.begin() + i);
@@ -161,16 +160,24 @@ int Model::update() {
             }
         }
         //collision between the spaceship and the asteroid
-        if (!spaceship->GetInvincible()) {
-            if (FlyingObject::Collide(asteroidList[i], spaceship)) {
-                if (spaceship->GetShield() == 0) {
+        //TODO pas d'overlap entre les asteroid et le vaisseau
+        if (FlyingObject::Collide(asteroidList[i], spaceship)) {
+            if (!spaceship->GetInvincible()) {
+                if (spaceship->GetShield() <= 0.0) {
                     return -1;
                 } else {
-                    spaceship->SetShield(spaceship->GetShield() - 1);
+                    double newShield = spaceship->GetShield() - 0.0;
+                    spaceship->SetShield(newShield);
                     spaceship->SetInvincibleFor(1);
                     //                spaceship->SetInvincibleFor(true);
                 }
             }
+            //no overlap, the asteroid bounce
+//            spaceship->SetXSpeed(-spaceship->GetXSpeed());
+//            spaceship->SetYSpeed(-spaceship->GetYSpeed());
+//            asteroidList[i]->SetYSpeed(-asteroidList[i]->GetYSpeed());
+//            asteroidList[i]->SetXSpeed(-asteroidList[i]->GetXSpeed());
+
         }
     }
     if (spaceship->GetInvincible()) {
@@ -184,21 +191,15 @@ int Model::update() {
     for (auto & i : missileList) {
         i->Move(screenWidth, screenHeight);
     }
-//    framework->Update(); //todo reflechir si c'est mieux au dessus ou a la fin ( les return font que ça update pas)
     return 0;
 }
 
 vector<FlyingObject *> Model::getAllFlyingObjects() {
     //return the list of all the flying objects
-    vector<FlyingObject *> allFlyingObjects;
+    std::vector<FlyingObject *> allFlyingObjects;
+    std::copy(asteroidList.begin(), asteroidList.end(), std::back_inserter(allFlyingObjects));
+    std::copy(missileList.begin(), missileList.end(), std::back_inserter(allFlyingObjects));
     allFlyingObjects.push_back(spaceship);
-//    vector<FlyingObject *> v(asteroidList.begin(), asteroidList.end()); TODO pourquoi ça marche pas ?
-    for (auto & i : asteroidList) {
-        allFlyingObjects.push_back(i);
-    }
-    for (auto & i : missileList) {
-        allFlyingObjects.push_back(i);
-    }
     return allFlyingObjects;
 }
 

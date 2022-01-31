@@ -3,11 +3,6 @@
 //
 
 #include "Controller.h"
-
-
-#define NB_ASTEROIDS 10
-#define DEBUG True
-
 // constructor
 Controller::Controller(int fps, int shipSize, int missileSize) {
     this->framework = new Framework(fps, shipSize, missileSize);
@@ -91,8 +86,4 @@ void Controller::LaunchGame() {
 //        view->displayLoose();
         cout<<"lost"<<endl;
     }
-
-//    delete framework;
-//    delete model;
-//    delete view;
 }

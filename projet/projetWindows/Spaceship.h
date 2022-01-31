@@ -20,8 +20,8 @@ public:
     //destructor
 //    ~Spaceship();
     string GetTypeName() override;
-    int GetShield();
-    void SetShield(int i);
+    double GetShield();
+    void SetShield(double i);
     bool GetInvincible();
 //    void SetInvincible(bool i);
     void SetInvincibleFor(double duration);

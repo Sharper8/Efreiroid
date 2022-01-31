@@ -17,8 +17,6 @@ public:
     void Move(double screenWidth, double screenHeight) override;
     int GetnBExplosionsLeft();
     Asteroid* Explode(double xSpeed, double ySpeed);
-
-
 };
 
 #endif //SDLTEST_ASTEROID_H
