@@ -14,8 +14,8 @@ using namespace std;
 int WinMain(int argc, char* argv[]) {
     //initialisation of the random function
     srand(static_cast<unsigned>(time(NULL)));
-    //MVC implementation
-    Controller controller(60, 50, 10);
+//    MVC implementation
+    Controller controller(60, 40, 10);
     controller.LaunchGame();
     return 0;
 }

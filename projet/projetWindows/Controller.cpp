@@ -57,10 +57,10 @@ void Controller::LaunchGame() {
                     model->decelerate();
                     break;
                 case SDLK_LEFT:
-                    model->rotate(-20);
+                    model->rotate(-15);
                     break;
                 case SDLK_RIGHT:
-                    model->rotate(20);
+                    model->rotate(15);
                     break;
                 case SDLK_SPACE:
                     model->shoot();

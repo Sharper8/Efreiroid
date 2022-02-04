@@ -47,7 +47,7 @@ Model::Model(int screenWidth, int screenHeight, int shipSize, int missileSize, F
     // Create a uniform_int_distribution for choosing a random zone
     std::uniform_int_distribution<int> distribution(0, zones.size() - 1);
     //generate 10 asteroids
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 5; ++i) {
         // choose a random zone from the vector of zones with uniform_int_distribution() function
         // generate the random index
         int randomZoneIndex = distribution(generator);
@@ -63,7 +63,7 @@ Model::Model(int screenWidth, int screenHeight, int shipSize, int missileSize, F
         double XSpeed = cos(deg2rad(angle))*5;
         double YSpeed = sin(deg2rad(angle))*5;
         //assign those random values and spawn the asteroid
-        asteroidList.push_back(new Asteroid(X, Y,rand() % 200 + 75, XSpeed,YSpeed,angle));
+        asteroidList.push_back(new Asteroid(X, Y,rand() % 100 + 55, XSpeed,YSpeed,angle));
     }
 }
 
@@ -131,7 +131,6 @@ int Model::update() {
     if (asteroidList.empty()) {
         return 1;
     }
-    //TODO pourquoi la luminosité change ou scintille en fonction du nbr d'asteroid
     framework->Update();
     //check for collisions in both lists
     for (int i = 0 ; i<asteroidList.size();++i){
@@ -162,10 +161,10 @@ int Model::update() {
         //collision between the spaceship and the asteroid
         if (FlyingObject::Collide(asteroidList[i], spaceship)) {
             if (!spaceship->GetInvincible()) {
-                if (spaceship->GetShield() <= 0.0) {
+                if (spaceship->GetShield() <= 0.1) {
                     return -1;
                 } else {
-                    double newShield = spaceship->GetShield() - 0.0;
+                    double newShield = spaceship->GetShield() - 0.2;
                     spaceship->SetShield(newShield);
                     spaceship->SetInvincibleFor(1);
                     //                spaceship->SetInvincibleFor(true);
