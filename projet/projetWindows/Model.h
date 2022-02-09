@@ -15,35 +15,30 @@ using namespace std;
 //empty class model
 class Model {
     // private section
-    private:
+private:
     // attributes
     double missileSize;
     int screenWidth;
     int screenHeight;
     Framework *framework;
-    Spaceship* spaceship;
+    Spaceship *spaceship;
     vector<Missile *> missileList;
     vector<Asteroid *> asteroidList;
 
 public:
     // constructor
-    Model(int screenWidth,int screenHeight,int shipSize,int missileSize, Framework *framework);
+    Model(int screenWidth, int screenHeight, int shipSize, int missileSize, Framework *framework);
+
     // destructor
     ~Model();
 
-    // methods
-    void accelerate() const;
-
-    int update();
-
-    std::vector<FlyingObject*> getAllFlyingObjects();
-
-    void decelerate() const;
-
-    void rotate(int angle) const;
+    Spaceship* getSpaceship();
 
     void shoot();
 
-};
+    int update();
 
+    std::vector<FlyingObject *> getAllFlyingObjects();
+
+};
 #endif //SDLTEST_MODEL_H

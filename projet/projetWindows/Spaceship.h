@@ -17,13 +17,13 @@ public:
     bool warning = false;
     // Constructor
     Spaceship(double x, double y, double size, double xSpeed, double ySpeed,double angle);
-    //destructor
-//    ~Spaceship();
     string GetTypeName() override;
-    double GetShield();
+    double GetShield() const;
     void SetShield(double i);
-    bool GetInvincible();
-//    void SetInvincible(bool i);
+    bool GetInvincible() const;
+    void accelerate();
+    void decelerate();
+    void rotate(int angle);
     void SetInvincibleFor(double duration);
     void UpdateInvincibilityStatus();
 };

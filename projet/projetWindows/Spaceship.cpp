@@ -14,14 +14,14 @@ string Spaceship::GetTypeName() {
     return "Spaceship";
 }
 
-double Spaceship::GetShield() {
+double Spaceship::GetShield() const {
     return shield;
 }
 void Spaceship::SetShield(double i) {
     this->shield = i;
 }
 
-bool Spaceship::GetInvincible() {
+bool Spaceship::GetInvincible() const {
     return invincible;
 }
 
@@ -37,4 +37,53 @@ void Spaceship::UpdateInvincibilityStatus() {
         invincible = false;
         warning = false;
     }
+}
+
+
+// methods
+void Spaceship::accelerate() {
+    double accFactor = 9.8;
+    //define the absolute speed of the spaceship
+    double new_xSpeed = xSpeed + cos(deg2rad(angle)) * 2;
+    double new_ySpeed = ySpeed + sin(deg2rad(angle)) * 2;
+    // if the speed is too high, set it to the max speed
+    if (new_xSpeed > 10) {
+        new_xSpeed = 10;
+    }
+    if (new_ySpeed > 10) {
+        new_ySpeed = 10;
+    }
+    if (new_xSpeed < -10) {
+        new_xSpeed = -10;
+    }
+    if (new_ySpeed < -10) {
+        new_ySpeed = -10;
+    }
+    xSpeed = new_xSpeed;
+    ySpeed= new_ySpeed;
+}
+
+void Spaceship::decelerate() {
+    double new_xSpeed = xSpeed - cos(deg2rad(angle)) * 2;
+    double new_ySpeed = ySpeed - sin(deg2rad(angle)) * 2;
+    // if the speed is too high, set it to the max speed
+    if (new_xSpeed > 10) {
+        new_xSpeed = 10;
+    }
+    if (new_ySpeed > 10) {
+        new_ySpeed = 10;
+    }
+    if (new_xSpeed < -10) {
+        new_xSpeed = -10;
+    }
+    if (new_ySpeed < -10) {
+        new_ySpeed = -10;
+    }
+    xSpeed = new_xSpeed;
+    ySpeed= new_ySpeed;
+}
+
+void Spaceship::rotate(int angle) {
+    double new_angle = this->angle + angle;
+    this->angle = new_angle;
 }

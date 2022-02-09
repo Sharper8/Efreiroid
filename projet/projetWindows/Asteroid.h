@@ -17,7 +17,7 @@ public:
     [[nodiscard]] int getNbExplosionsLeft() const;
     void Move(double screenWidth, double screenHeight) override;
     Asteroid* Explode(double xSpeed, double ySpeed);
-
+    static Asteroid* randomAsteroid(int screenWidth, int screenHeight);
 };
 
 #endif //SDLTEST_ASTEROID_H

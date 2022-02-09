@@ -7,7 +7,6 @@
 #include "framework.hpp"
 #include <vector>
 #include <cmath>
-#include <random>
 #include "missile.h"
 #include "asteroid.h"
 #include "spaceship.h"
@@ -27,89 +26,11 @@ Model::Model(int screenWidth, int screenHeight, int shipSize, int missileSize, F
     this->missileList = vector<Missile*> ();
     //init a list of asteroids with random speed, size and position
     this-> asteroidList = vector<Asteroid*> ();
-    // create a vector of vector that stores the coordinates of 9 even zones on the screen, exclude the middle of the screen
-    vector<vector<int>> zones = {{screenWidth / 3, 0, 0, screenHeight / 3},
-                                 {screenWidth / 3, 0, screenHeight / 3, screenHeight * 2 / 3},
-                                 {screenWidth / 3, 0, screenHeight * 2 / 3, screenHeight},
-                                 {screenWidth * 2 / 3, screenWidth, 0, screenHeight / 3},
-                                 {screenWidth * 2 / 3, screenWidth, screenHeight / 3, screenHeight * 2 / 3},
-                                 {screenWidth * 2 / 3, screenWidth, screenHeight * 2 / 3, screenHeight},
-                                 {screenWidth, screenWidth * 2 / 3, 0, screenHeight / 3},
-                                 {screenWidth, screenWidth * 2 / 3, screenHeight / 3, screenHeight * 2 / 3},
-                                 {screenWidth, screenWidth * 2 / 3, screenHeight * 2 / 3, screenHeight}};
-    // Use std::random_device to seed the engine
-    std::random_device rd;
-    std::default_random_engine generator(rd());
-    // Create a uniform_int_distribution for choosing a random zone
-    std::uniform_int_distribution<int> distribution(0, (int)zones.size() - 1);
-    //generate 10 asteroids
+    //create 5 random asteroids
     for (int i = 0; i < 5; ++i) {
-        // choose a random zone from the vector of zones with uniform_int_distribution() function
-        int randomZoneIndex = distribution(generator);
-        std::vector<int> selectedZone = zones[randomZoneIndex];
-        //choose a random set of coordinates base on the zones coordinates of the chosen zone using uniform_real_distribution () function
-        std::uniform_real_distribution<double> xDistribution(selectedZone[1], selectedZone[0]);
-        std::uniform_real_distribution<double> yDistribution(selectedZone[2], selectedZone[3]);
-        //generate a random angle between-180 and 180° using uniform_int_distribution
-        double angle = distribution(generator) * 40 - 180;
-        //generate a random double between 55 and 155 for size
-        std::uniform_real_distribution<double> sizeDistribution(55, 155);
-        double size = sizeDistribution(generator);
-        // Generate random x and y coordinates
-        double X = xDistribution(generator);
-        double Y = yDistribution(generator);
-        double XSpeed = cos(deg2rad(angle))*5;
-        double YSpeed = sin(deg2rad(angle))*5;
-        //assign those random values and spawn the asteroid
-        asteroidList.push_back(new Asteroid(X, Y,size, XSpeed,YSpeed,angle));
+        //new random asteroid
+        asteroidList.push_back(Asteroid::randomAsteroid(screenWidth, screenHeight));
     }
-}
-
-// methods
-void Model::accelerate() const {
-    //define the absolute speed of the spaceship
-    double new_xSpeed = spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle())) * 2;
-    double new_ySpeed = spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 2;
-    // if the speed is too high, set it to the max speed
-    if (new_xSpeed > 10) {
-        new_xSpeed = 10;
-    }
-    if (new_ySpeed > 10) {
-        new_ySpeed = 10;
-    }
-    if (new_xSpeed < -10) {
-        new_xSpeed = -10;
-    }
-    if (new_ySpeed < -10) {
-        new_ySpeed = -10;
-    }
-    spaceship->SetXSpeed(new_xSpeed);
-    spaceship->SetYSpeed(new_ySpeed);
-}
-
-// methods
-void Model::decelerate() const {
-    double new_ySpeed = spaceship->GetYSpeed() - sin(deg2rad(spaceship->GetAngle())) * 2;
-    double new_xSpeed = spaceship->GetXSpeed() - cos(deg2rad(spaceship->GetAngle())) * 2;
-    if (new_xSpeed > 10) {
-        new_xSpeed = 10;
-    }
-    if (new_ySpeed > 10) {
-        new_ySpeed = 10;
-    }
-    if (new_xSpeed < -10) {
-        new_xSpeed = -10;
-    }
-    if (new_ySpeed < -10) {
-        new_ySpeed = -10;
-    }
-    spaceship->SetXSpeed(new_xSpeed);
-    spaceship->SetYSpeed(new_ySpeed);
-}
-
-void Model::rotate(int angle) const {
-    double new_angle = spaceship->GetAngle() + angle;
-    spaceship->SetAngle(new_angle);
 }
 
 void Model::shoot() {
@@ -140,7 +61,6 @@ int Model::update() {
             }
             //collision between the missile and the asteroid
             if (FlyingObject::Collide(asteroidList[i], missileList[j])) {
-                // delete the asteroid and the missile
                 //if any explosion left in asteroid
                 if (asteroidList[i]->getNbExplosionsLeft() <= 0) {
                     delete asteroidList[i];
@@ -211,3 +131,8 @@ Model::~Model() {
         delete i;
     }
 }
+
+Spaceship *Model::getSpaceship() {
+    return spaceship;
+}
+

@@ -10,7 +10,6 @@
 #define SDLTEST_CONTROLLER_H
 // define the class Controller
 class Controller {
-
     // private section
     private:
     // attributes
