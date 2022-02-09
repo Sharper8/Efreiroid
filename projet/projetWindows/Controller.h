@@ -17,13 +17,11 @@ class Controller {
     Model* model;
     Framework* framework;
     View* view;
-    bool isRunning = true;
+    int isRunning;
 
     public:
     Controller(int fps,int shipSize,int missileSize);
     ~Controller();
-
-    void setIsRunning(bool running);
     void LaunchGame();
 };
 #endif //SDLTEST_CONTROLLER_H

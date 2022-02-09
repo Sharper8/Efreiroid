@@ -8,46 +8,22 @@ Controller::Controller(int fps, int shipSize, int missileSize) {
     this->framework = new Framework(fps, shipSize, missileSize);
     this->model = new Model(framework->GetScreenWidth(), framework->GetScreenHeight(), shipSize, missileSize, framework);
     this->view = new View(framework);
-    this->isRunning = true;
+    this->isRunning = 0;
 }
 
 //destructor
 Controller::~Controller() {//delete all the elements of the lists
    //delete the spaceship
-    delete model->spaceship;
-
-    //delete the asteroids
-    for (auto & i : model->asteroidList)
-        delete i;
-
-    for (auto & i : model->missileList) {
-        delete i;
-    }
-    delete framework;
     delete model;
+    delete framework;
     delete view;
 }
 
-//function to transform deg in rad
-double degvrad(double degrees) {
-    return degrees * M_PI / 180.0;
-}
-
-void Controller::setIsRunning(bool running) {
-    this->isRunning = running;
-}
-
 void Controller::LaunchGame() {
-    //todo optimiser avec isrunning
     int quitPressed=0;
-    while (isRunning && !quitPressed) {
-//    while ( !quitPressed) {
+    while (isRunning==0 && !quitPressed) {
         //get user input
         int input = framework->GetInput();
-//        int input2 = framework->GetInput();
-        //TODO get mutliple inputs
-//        int tabInputs[2] = {input, input2};
-//        for (int tabinput : tabInputs) {
             //input treatment for the spaceship controls
             switch (input) {
                 case SDLK_UP:
@@ -66,24 +42,18 @@ void Controller::LaunchGame() {
                     model->shoot();
                     break;
                 case SDLK_ESCAPE:
-                    isRunning = false;
-                    break;
-                case SDLK_q:
-                    quitPressed=1;
+                    quitPressed = true;
                     break;
                 default:
                     break;
             }
-//        }
-        quitPressed= model->update();
+        isRunning = model->update();
         view->update(model->getAllFlyingObjects());
     }
-    if (quitPressed == 1){
-//        view->displayWin();
-        cout<<"win"<<endl;
+    if (isRunning == 1){
+        cout<<"Congrats, You won."<<isRunning<<endl;
     }
     else{
-//        view->displayLoose();
-        cout<<"lost"<<endl;
+        cout<<"Too bad ! You lost."<<isRunning<<endl;
     }
 }

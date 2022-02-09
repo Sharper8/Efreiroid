@@ -9,16 +9,15 @@
 
 
 class Missile:public FlyingObject {
+private:
     double size = size;
     bool outOfScreen = false;
 
 public:
-
     Missile(double x, double y, double size, double xSpeed, double ySpeed, double angle);
-
     void Move(double screenWidth, double screenHeight) override;
     string GetTypeName() override;
-    bool GetOutofScreen();
+    [[nodiscard]] bool getOutOfScreen() const;
 };
 
 

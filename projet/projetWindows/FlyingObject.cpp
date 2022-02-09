@@ -92,10 +92,9 @@ void FlyingObject::Move(double screenWidth, double screenHeight) {
     }
 }
 
-FlyingObject::~FlyingObject() {
-}
+FlyingObject::~FlyingObject() = default;
 
-double FlyingObject::GetAngle() {
+double FlyingObject::GetAngle() const {
     return angle;
 }
 

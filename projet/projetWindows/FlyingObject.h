@@ -32,7 +32,7 @@ class FlyingObject {
     double GetY();
     double GetXSpeed();
     double GetYSpeed();
-    double GetAngle();
+    double GetAngle() const;
 
     //setters
     void SetX(double xSpeed);
@@ -43,13 +43,9 @@ class FlyingObject {
     void SetAngle(double d);
 
     virtual void Move();
-
     virtual void Move(double screenWidth, double screenHeight);
-
     double GetSize();
-
     virtual string GetTypeName()=0;
-
     static bool Collide(FlyingObject *o1, FlyingObject *o2);
 
 

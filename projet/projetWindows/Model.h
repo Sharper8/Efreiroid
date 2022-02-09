@@ -21,8 +21,10 @@ class Model {
     int screenWidth;
     int screenHeight;
     Framework *framework;
+    Spaceship* spaceship;
+    vector<Missile *> missileList;
+    vector<Asteroid *> asteroidList;
 
-    // public section
 public:
     // constructor
     Model(int screenWidth,int screenHeight,int shipSize,int missileSize, Framework *framework);
@@ -30,22 +32,18 @@ public:
     ~Model();
 
     // methods
-    void accelerate();
+    void accelerate() const;
 
     int update();
 
     std::vector<FlyingObject*> getAllFlyingObjects();
 
-    void decelerate();
+    void decelerate() const;
 
-    void rotate(int angle);
+    void rotate(int angle) const;
 
     void shoot();
 
-    //todo remettre en priové
-    Spaceship* spaceship;
-    vector<Missile *> missileList;
-    vector<Asteroid *> asteroidList;
 };
 
 #endif //SDLTEST_MODEL_H

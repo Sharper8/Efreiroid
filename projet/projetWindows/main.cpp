@@ -1,10 +1,7 @@
-#include <iostream>
 #include "FlyingObject.h"
 #include "Asteroid.h"
 #include "Missile.h"
 #include "Spaceship.h"
-#include <cstdlib>
-#include <vector>
 #include "Model.h"
 #include "View.h"
 #include "Controller.h"
@@ -12,9 +9,7 @@
 using namespace std;
 
 int WinMain(int argc, char* argv[]) {
-    //initialisation of the random function
-    srand(static_cast<unsigned>(time(NULL)));
-//    MVC implementation
+    //MVC implementation
     Controller controller(60, 40, 10);
     controller.LaunchGame();
     return 0;

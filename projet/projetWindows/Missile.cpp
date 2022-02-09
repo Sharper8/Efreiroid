@@ -2,9 +2,11 @@
 // Created by Sharper8 on 07/09/2023.
 //
 #include "Missile.h"
+#include "FlyingObject.h"
 
+Missile::Missile(double x, double y,double size, double xSpeed, double ySpeed,double angle): FlyingObject(x, y, size, xSpeed, ySpeed,angle){
 
-Missile::Missile(double x, double y,double size, double xSpeed, double ySpeed,double angle):FlyingObject(x, y, size, xSpeed, ySpeed,angle){}
+}
 
 void Missile::Move(double screenWidth, double screenHeight) {
     y += ySpeed;
@@ -19,6 +21,6 @@ string Missile::GetTypeName() {
     return "Missile";
 }
 
-bool Missile::GetOutofScreen() {
+bool Missile::getOutOfScreen() const {
     return outOfScreen;
 }

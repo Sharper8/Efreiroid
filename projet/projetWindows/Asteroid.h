@@ -14,9 +14,10 @@ private:
 public:
     Asteroid(double x, double y, double size, double xSpeed, double ySpeed,double angle);
     string GetTypeName() override;
+    [[nodiscard]] int getNbExplosionsLeft() const;
     void Move(double screenWidth, double screenHeight) override;
-    int GetnBExplosionsLeft();
     Asteroid* Explode(double xSpeed, double ySpeed);
+
 };
 
 #endif //SDLTEST_ASTEROID_H

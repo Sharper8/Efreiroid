@@ -5,11 +5,8 @@
 #include "Model.h"
 #include "View.h"
 #include "framework.hpp"
-#include <iostream>
 #include <vector>
 #include <cmath>
-#include <cstdlib>
-#include <ctime>
 #include <random>
 #include "missile.h"
 #include "asteroid.h"
@@ -24,10 +21,8 @@ Model::Model(int screenWidth, int screenHeight, int shipSize, int missileSize, F
     this->screenHeight = screenHeight;
     this->framework = framework;
     this->missileSize = missileSize;
-    //initialisation of the random
-    srand(static_cast<unsigned>(time(NULL)));
     //define spaceship
-    this->spaceship = new Spaceship(screenWidth / 2, screenHeight / 2, shipSize, 0, 0, 0);
+    this->spaceship = new Spaceship((double) screenWidth / 2, (double) screenHeight / 2, shipSize, 0, 0, 0);
     //vector for missiles
     this->missileList = vector<Missile*> ();
     //init a list of asteroids with random speed, size and position
@@ -42,32 +37,36 @@ Model::Model(int screenWidth, int screenHeight, int shipSize, int missileSize, F
                                  {screenWidth, screenWidth * 2 / 3, 0, screenHeight / 3},
                                  {screenWidth, screenWidth * 2 / 3, screenHeight / 3, screenHeight * 2 / 3},
                                  {screenWidth, screenWidth * 2 / 3, screenHeight * 2 / 3, screenHeight}};
-    //init random seed
-    std::default_random_engine generator;
+    // Use std::random_device to seed the engine
+    std::random_device rd;
+    std::default_random_engine generator(rd());
     // Create a uniform_int_distribution for choosing a random zone
-    std::uniform_int_distribution<int> distribution(0, zones.size() - 1);
+    std::uniform_int_distribution<int> distribution(0, (int)zones.size() - 1);
     //generate 10 asteroids
     for (int i = 0; i < 5; ++i) {
         // choose a random zone from the vector of zones with uniform_int_distribution() function
-        // generate the random index
         int randomZoneIndex = distribution(generator);
         std::vector<int> selectedZone = zones[randomZoneIndex];
-        //choose a random set of coordinates base on the zones coordinates of the chosen zone using uniform_real_distribution () funciton
+        //choose a random set of coordinates base on the zones coordinates of the chosen zone using uniform_real_distribution () function
         std::uniform_real_distribution<double> xDistribution(selectedZone[1], selectedZone[0]);
         std::uniform_real_distribution<double> yDistribution(selectedZone[2], selectedZone[3]);
         //generate a random angle between-180 and 180° using uniform_int_distribution
         double angle = distribution(generator) * 40 - 180;
+        //generate a random double between 55 and 155 for size
+        std::uniform_real_distribution<double> sizeDistribution(55, 155);
+        double size = sizeDistribution(generator);
         // Generate random x and y coordinates
         double X = xDistribution(generator);
         double Y = yDistribution(generator);
         double XSpeed = cos(deg2rad(angle))*5;
         double YSpeed = sin(deg2rad(angle))*5;
         //assign those random values and spawn the asteroid
-        asteroidList.push_back(new Asteroid(X, Y,rand() % 100 + 55, XSpeed,YSpeed,angle));
+        asteroidList.push_back(new Asteroid(X, Y,size, XSpeed,YSpeed,angle));
     }
 }
 
-void Model::accelerate() {
+// methods
+void Model::accelerate() const {
     //define the absolute speed of the spaceship
     double new_xSpeed = spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle())) * 2;
     double new_ySpeed = spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 2;
@@ -89,7 +88,7 @@ void Model::accelerate() {
 }
 
 // methods
-void Model::decelerate() {
+void Model::decelerate() const {
     double new_ySpeed = spaceship->GetYSpeed() - sin(deg2rad(spaceship->GetAngle())) * 2;
     double new_xSpeed = spaceship->GetXSpeed() - cos(deg2rad(spaceship->GetAngle())) * 2;
     if (new_xSpeed > 10) {
@@ -108,7 +107,7 @@ void Model::decelerate() {
     spaceship->SetYSpeed(new_ySpeed);
 }
 
-void Model::rotate(int angle) {
+void Model::rotate(int angle) const {
     double new_angle = spaceship->GetAngle() + angle;
     spaceship->SetAngle(new_angle);
 }
@@ -118,12 +117,12 @@ void Model::shoot() {
         return;
     }
     //new missile object
-    double xpos = spaceship->GetX();
-    double ypos = spaceship->GetY();
+    double xPos = spaceship->GetX();
+    double yPos = spaceship->GetY();
     //base velocity of the missile
-    double xspeed = spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle())) * 10;
-    double yspeed = spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 10;
-    missileList.push_back(new Missile(xpos, ypos, missileSize, xspeed, yspeed, spaceship->GetAngle()));
+    double xSpeed = spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle())) * 10;
+    double ySpeed = spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 10;
+    missileList.push_back(new Missile(xPos, yPos, missileSize, xSpeed, ySpeed, spaceship->GetAngle()));
 }
 
 int Model::update() {
@@ -135,7 +134,7 @@ int Model::update() {
     //check for collisions in both lists
     for (int i = 0 ; i<asteroidList.size();++i){
         for (int j = 0; j < missileList.size(); ++j) {
-            if (missileList[j]->GetOutofScreen()) {
+            if (missileList[j]->getOutOfScreen()) {
                 delete missileList[j];
                 missileList.erase(missileList.begin() + j);
             }
@@ -143,7 +142,7 @@ int Model::update() {
             if (FlyingObject::Collide(asteroidList[i], missileList[j])) {
                 // delete the asteroid and the missile
                 //if any explosion left in asteroid
-                if (asteroidList[i]->GetnBExplosionsLeft() <= 0) {
+                if (asteroidList[i]->getNbExplosionsLeft() <= 0) {
                     delete asteroidList[i];
                     asteroidList.erase(asteroidList.begin() + i);
                 }
@@ -167,7 +166,6 @@ int Model::update() {
                     double newShield = spaceship->GetShield() - 0.2;
                     spaceship->SetShield(newShield);
                     spaceship->SetInvincibleFor(1);
-                    //                spaceship->SetInvincibleFor(true);
                 }
             }
             //no overlap, the asteroid bounce
@@ -175,7 +173,6 @@ int Model::update() {
 //            spaceship->SetYSpeed(-spaceship->GetYSpeed());
 //            asteroidList[i]->SetYSpeed(-asteroidList[i]->GetYSpeed());
 //            asteroidList[i]->SetXSpeed(-asteroidList[i]->GetXSpeed());
-
         }
     }
     if (spaceship->GetInvincible()) {
@@ -193,7 +190,7 @@ int Model::update() {
 }
 
 vector<FlyingObject *> Model::getAllFlyingObjects() {
-    //return the list of all the flying objects
+//    return the list of all the flying objects
     std::vector<FlyingObject *> allFlyingObjects;
     std::copy(asteroidList.begin(), asteroidList.end(), std::back_inserter(allFlyingObjects));
     std::copy(missileList.begin(), missileList.end(), std::back_inserter(allFlyingObjects));
@@ -201,4 +198,16 @@ vector<FlyingObject *> Model::getAllFlyingObjects() {
     return allFlyingObjects;
 }
 
-Model::~Model() = default;
+Model::~Model() {
+    //delete all the elements of the lists
+    //delete the spaceship
+    delete spaceship;
+    //delete the missiles
+    for (auto & i : missileList) {
+        delete i;
+    }
+    //delete the asteroids
+    for (auto & i : asteroidList) {
+        delete i;
+    }
+}
