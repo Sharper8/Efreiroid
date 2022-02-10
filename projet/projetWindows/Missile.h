@@ -10,8 +10,7 @@
 
 class Missile:public FlyingObject {
 private:
-    double size = size;
-    bool outOfScreen = false;
+    bool outOfScreen;
 
 public:
     Missile(double x, double y, double size, double xSpeed, double ySpeed, double angle);

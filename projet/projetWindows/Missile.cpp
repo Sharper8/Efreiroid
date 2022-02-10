@@ -3,9 +3,12 @@
 //
 #include "Missile.h"
 #include "FlyingObject.h"
+#include <cmath>
 
-Missile::Missile(double x, double y,double size, double xSpeed, double ySpeed,double angle): FlyingObject(x, y, size, xSpeed, ySpeed,angle){
-
+Missile::Missile(double x, double y,double size, double xSpeed, double ySpeed,double angle): FlyingObject(x, y, size, xSpeed, ySpeed,angle) {
+    outOfScreen = false;
+    this->xSpeed = xSpeed + cos(deg2rad(angle)) * 10;
+    this->ySpeed = ySpeed + sin(deg2rad(angle)) * 10;
 }
 
 void Missile::Move(double screenWidth, double screenHeight) {

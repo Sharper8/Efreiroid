@@ -40,10 +40,7 @@ void Model::shoot() {
     //new missile object
     double xPos = spaceship->GetX();
     double yPos = spaceship->GetY();
-    //base velocity of the missile
-    double xSpeed = spaceship->GetXSpeed() + cos(deg2rad(spaceship->GetAngle())) * 10;
-    double ySpeed = spaceship->GetYSpeed() + sin(deg2rad(spaceship->GetAngle())) * 10;
-    missileList.push_back(new Missile(xPos, yPos, missileSize, xSpeed, ySpeed, spaceship->GetAngle()));
+    missileList.push_back(new Missile(xPos, yPos, missileSize, spaceship->GetXSpeed() , spaceship->GetYSpeed(), spaceship->GetAngle()));
 }
 
 int Model::update() {
