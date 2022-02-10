@@ -4,7 +4,6 @@
 
 #include <cmath>
 #include "Spaceship.h"
-#include <iostream>
 using namespace std;
 
 Spaceship::Spaceship(double x, double y, double size, double xSpeed, double ySpeed,double angle) : FlyingObject(x, y, size, xSpeed, ySpeed,angle) {
@@ -14,10 +13,10 @@ string Spaceship::GetTypeName() {
     return "Spaceship";
 }
 
-double Spaceship::GetShield() const {
+float Spaceship::GetShield() const {
     return shield;
 }
-void Spaceship::SetShield(double i) {
+void Spaceship::SetShield(float i) {
     this->shield = i;
 }
 
@@ -42,10 +41,10 @@ void Spaceship::UpdateInvincibilityStatus() {
 
 // methods
 void Spaceship::accelerate() {
-    double accFactor = 9.8;
+    double accFactor = 0.4;
     //define the absolute speed of the spaceship
-    double new_xSpeed = xSpeed + cos(deg2rad(angle)) * 2;
-    double new_ySpeed = ySpeed + sin(deg2rad(angle)) * 2;
+    double new_xSpeed = xSpeed + cos(deg2rad(angle)) * accFactor;
+    double new_ySpeed = ySpeed + sin(deg2rad(angle)) * accFactor;
     // if the speed is too high, set it to the max speed
     if (new_xSpeed > 10) {
         new_xSpeed = 10;
@@ -64,8 +63,9 @@ void Spaceship::accelerate() {
 }
 
 void Spaceship::decelerate() {
-    double new_xSpeed = xSpeed - cos(deg2rad(angle)) * 2;
-    double new_ySpeed = ySpeed - sin(deg2rad(angle)) * 2;
+    double accFactor = 0.4;
+    double new_xSpeed = xSpeed - cos(deg2rad(angle)) * accFactor;
+    double new_ySpeed = ySpeed - sin(deg2rad(angle)) * accFactor;
     // if the speed is too high, set it to the max speed
     if (new_xSpeed > 10) {
         new_xSpeed = 10;
@@ -86,4 +86,8 @@ void Spaceship::decelerate() {
 void Spaceship::rotate(int angle) {
     double new_angle = this->angle + angle;
     this->angle = new_angle;
+}
+
+bool Spaceship::getWarning() const {
+    return warning;
 }

@@ -16,7 +16,7 @@ class View {
     Framework* framework;
 public :
     //constructors
-    View(Framework *framework);
+    explicit View(Framework *framework);
     void update(vector<FlyingObject*> flyingObjectsList);
 };
 #endif //SDLTEST_VIEW_H

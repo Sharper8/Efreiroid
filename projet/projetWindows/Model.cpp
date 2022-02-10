@@ -88,11 +88,6 @@ int Model::update() {
                     spaceship->SetInvincibleFor(1);
                 }
             }
-            //no overlap, the asteroid bounce
-//            spaceship->SetXSpeed(-spaceship->GetXSpeed());
-//            spaceship->SetYSpeed(-spaceship->GetYSpeed());
-//            asteroidList[i]->SetYSpeed(-asteroidList[i]->GetYSpeed());
-//            asteroidList[i]->SetXSpeed(-asteroidList[i]->GetXSpeed());
         }
     }
     if (spaceship->GetInvincible()) {

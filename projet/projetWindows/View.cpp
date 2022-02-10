@@ -19,17 +19,17 @@ void View::update(vector<FlyingObject*> flyingObjectsList){
         //if the element is an asteroid
         if (i->GetTypeName() == "Asteroid") {
             //show asteroid on canvas
-            framework->DrawAsteroid(i->GetX(), i->GetY(), i->GetSize());
+            framework->DrawAsteroid((int)i->GetX(), (int)i->GetY(), (int)i->GetSize());
         }
         //if the element is a missile
         if (i->GetTypeName() == "Missile"){
             //show missile on canvas
-            framework->DrawMissile(i->GetX(), i->GetY());
+            framework->DrawMissile((int)i->GetX(), (int)i->GetY());
         }
         //if the element is a spaceship
         if (i->GetTypeName() == "Spaceship") {
             //show spaceship on canvas
-            framework->DrawShip(i->GetX(), i->GetY(), i->GetAngle()+90, ((Spaceship*)i)->GetShield(), ((Spaceship*)i)->warning);
+            framework->DrawShip((int)i->GetX(), (int)i->GetY(), (float)i->GetAngle()+90, ((Spaceship*)i)->GetShield(), ((Spaceship*)i)->getWarning());
             //dessin de ship
 //            cout << "ship drawn" << endl;
          }

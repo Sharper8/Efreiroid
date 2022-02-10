@@ -28,23 +28,19 @@ class FlyingObject {
     ~FlyingObject();
 
     //getters
-    double GetX();
-    double GetY();
-    double GetXSpeed();
-    double GetYSpeed();
-    double GetAngle() const;
+    [[nodiscard]] double GetX() const;
+    [[nodiscard]] double GetY() const;
+    [[nodiscard]] double GetXSpeed() const;
+    [[nodiscard]] double GetYSpeed() const;
+    [[nodiscard]] double GetAngle() const;
 
     //setters
-    void SetX(double xSpeed);
-    void SetY(double ySpeed);
-    void SetXSpeed(double xSpeed);
-    void SetYSpeed(double ySpeed);
-    void SetSize(double size);
-    void SetAngle(double d);
+    void SetX(double d);
+    void SetY(double d);
 
-    virtual void Move();
+
     virtual void Move(double screenWidth, double screenHeight);
-    double GetSize();
+    [[nodiscard]] double GetSize() const;
     virtual string GetTypeName()=0;
     static bool Collide(FlyingObject *o1, FlyingObject *o2);
 

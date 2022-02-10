@@ -21,65 +21,32 @@ Controller::~Controller() {//delete all the elements of the lists
 
 void Controller::LaunchGame() {
     int quitPressed=0;
-//    while (isRunning==0 && !quitPressed) {
-//        //get user input
-//        const Uint8* keyStates = SDL_GetKeyboardState(NULL);
-//        int input = framework->GetInput();
-        //input treatment for the spaceship controls
-
-// input treatment for the spaceship controls
-//        if (keyStates[SDL_SCANCODE_UP]) {
-//            model->getSpaceship()->accelerate();
-//        }
-//
-//        if (keyStates[SDL_SCANCODE_DOWN]) {
-//            model->getSpaceship()->decelerate();
-//        }
-//
-//        if (keyStates[SDL_SCANCODE_LEFT]) {
-//            model->getSpaceship()->rotate(-15);
-//        }
-//
-//        if (keyStates[SDL_SCANCODE_RIGHT]) {
-//            model->getSpaceship()->rotate(15);
-//        }
-//        if (keyStates[SDL_SCANCODE_SPACE]) {
-//            model->shoot();
-//        }
-//        if (keyStates[SDL_SCANCODE_ESCAPE]) {
-//            quitPressed = true;
-//        }
-//        isRunning = model->update();
-//        view->update(model->getAllFlyingObjects());
-//    }
-
-//    while the game is running
     while (isRunning==0 && !quitPressed) {
         //get user input
+        const Uint8* keyStates = SDL_GetKeyboardState(nullptr);
         int input = framework->GetInput();
-            //input treatment for the spaceship controls
-            switch (input) {
-                case SDLK_UP:
-                    model->getSpaceship()->accelerate();
-                    break;
-                case SDLK_DOWN:
-                    model->getSpaceship()->decelerate();
-                    break;
-                case SDLK_LEFT:
-                    model->getSpaceship()->rotate(-15);
-                    break;
-                case SDLK_RIGHT:
-                    model->getSpaceship()->rotate(15);
-                    break;
-                case SDLK_SPACE:
-                    model->shoot();
-                    break;
-                case SDLK_ESCAPE:
-                    quitPressed = true;
-                    break;
-                default:
-                    break;
-            }
+        // input treatment for the spaceship controls
+        if (keyStates[SDL_SCANCODE_UP]) {
+            model->getSpaceship()->accelerate();
+        }
+
+        if (keyStates[SDL_SCANCODE_DOWN]) {
+            model->getSpaceship()->decelerate();
+        }
+
+        if (keyStates[SDL_SCANCODE_LEFT]) {
+            model->getSpaceship()->rotate(-5);
+        }
+
+        if (keyStates[SDL_SCANCODE_RIGHT]) {
+            model->getSpaceship()->rotate(5);
+        }
+        if (input == SDLK_SPACE) {
+            model->shoot();
+        }
+        if (keyStates[SDL_SCANCODE_ESCAPE]) {
+            quitPressed = true;
+        }
         isRunning = model->update();
         view->update(model->getAllFlyingObjects());
     }

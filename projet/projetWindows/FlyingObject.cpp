@@ -22,53 +22,33 @@ FlyingObject::FlyingObject(double x, double y, double size, double xSpeed, doubl
 }
 
 //getters
-double FlyingObject::GetX() {
+double FlyingObject::GetX() const {
     return x;
 }
 
-double FlyingObject::GetY() {
+double FlyingObject::GetY() const {
     return y;
 }
 
-double FlyingObject::GetXSpeed() {
+double FlyingObject::GetXSpeed() const {
     return xSpeed;
 }
 
-double FlyingObject::GetYSpeed() {
+double FlyingObject::GetYSpeed() const {
     return ySpeed;
 }
 
-double FlyingObject::GetSize() {
+double FlyingObject::GetSize() const {
     return size;
 }
 
 //setters
-void FlyingObject::SetX(double xSpeed) {
-    this->x = xSpeed;
+void FlyingObject::SetX(double d) {
+    this->x = d;
 }
 
-void FlyingObject::SetY(double ySpeed) {
-    this->y = ySpeed;
-}
-
-void FlyingObject::SetXSpeed(double xSpeed) {
-    this->xSpeed = xSpeed;
-}
-
-void FlyingObject::SetYSpeed(double ySpeed) {
-    this->ySpeed = ySpeed;
-}
-
-void FlyingObject::SetSize(double size) {
-    this->size = size;
-}
-
-//move
-void FlyingObject::Move() {
-    x += xSpeed;
-    y += ySpeed;
-//    framework.DrawAsteroid(framework.GetScreenWidth()/2, framework.GetScreenHeight()/2, 10);
-
+void FlyingObject::SetY(double d) {
+    this->y = d;
 }
 
 void FlyingObject::Move(double screenWidth, double screenHeight) {
@@ -96,10 +76,6 @@ FlyingObject::~FlyingObject() = default;
 
 double FlyingObject::GetAngle() const {
     return angle;
-}
-
-void FlyingObject::SetAngle(double d) {
-    this->angle = d;
 }
 
 bool FlyingObject::Collide(FlyingObject *o1, FlyingObject *o2) {
