@@ -80,9 +80,9 @@ int Model::update() {
                 if (spaceship->GetShield() <= 0.1) {
                     return -1;
                 } else {
-                    double newShield = spaceship->GetShield() - 0.2;
-                    spaceship->SetShield(newShield);
-                    spaceship->SetInvincibleFor(1);
+                    double newShield = spaceship->GetShield() - 0.4;
+                    spaceship->SetShield((float) newShield);
+                    spaceship->SetInvincibleFor(2);
                 }
             }
         }
