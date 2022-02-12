@@ -18,7 +18,7 @@ void Missile::Move(double screenWidth, double screenHeight) {
     if (x < 0 || x > screenWidth || y < 0 || y > screenHeight) {
         outOfScreen = true;
     }
-}
+}d
 
 string Missile::GetTypeName() {
     return "Missile";

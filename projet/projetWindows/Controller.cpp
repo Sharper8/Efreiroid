@@ -25,23 +25,23 @@ void Controller::LaunchGame() {
         //get user input
         const Uint8* keyStates = SDL_GetKeyboardState(nullptr);
         int input = framework->GetInput();
-        // input treatment for the spaceship controls
-        if (keyStates[SDL_SCANCODE_UP]) {
+        // input treatment for the spaceship controls for ZSQD+enter
+        if (keyStates[SDL_SCANCODE_UP] || keyStates[SDL_SCANCODE_W]) {
             model->getSpaceship()->accelerate();
         }
 
-        if (keyStates[SDL_SCANCODE_DOWN]) {
+        if (keyStates[SDL_SCANCODE_DOWN] || keyStates[SDL_SCANCODE_S]) {
             model->getSpaceship()->decelerate();
         }
 
-        if (keyStates[SDL_SCANCODE_LEFT]) {
+        if (keyStates[SDL_SCANCODE_LEFT] || keyStates[SDL_SCANCODE_A]) {
             model->getSpaceship()->rotate(-5);
         }
 
-        if (keyStates[SDL_SCANCODE_RIGHT]) {
+        if (keyStates[SDL_SCANCODE_RIGHT] || keyStates[SDL_SCANCODE_D]) {
             model->getSpaceship()->rotate(5);
         }
-        if (input == SDLK_SPACE) {
+        if (input == SDLK_SPACE || input == SDLK_RETURN) {
             model->shoot();
         }
         if (keyStates[SDL_SCANCODE_ESCAPE]) {
