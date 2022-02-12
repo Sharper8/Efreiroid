@@ -1,6 +1,12 @@
 //
 // Created by Sharper8 on 06/10/2023.
 //
+
+                        ////////////////////////////////////////
+                        // Description of the class objective //
+                        ////////////////////////////////////////
+// The controller class launches the game and manages the user input. It is the link between the model and the view.
+
 #include "Model.h"
 #include "View.h"
 #include "framework.hpp"

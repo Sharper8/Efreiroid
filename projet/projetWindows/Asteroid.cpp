@@ -1,6 +1,13 @@
 //
 // Created by Sharper8 on 07/09/2023.
 //
+
+
+// Affichage d'un astéroïde
+// Le sprite est dans "asteroid.bmp"
+// --------
+// * x, y : coordonnées du centre du vaisseau, en pixels
+// * size : taille du sprite, en pixels
 #include "Asteroid.h"
 #include "FlyingObject.h"
 #include <cmath>
@@ -38,6 +45,7 @@ int Asteroid::getNbExplosionsLeft() const {
 }
 
 Asteroid* Asteroid::Explode(double xSpeed, double ySpeed) {
+    //when hit, the asteroid explodes and creates 2 new asteroids
     size = size / 2;
     nbExplosionsLeft--;
     //change the speed of the new asteroids to be the same as the old one but with an impact of the missile
@@ -57,6 +65,7 @@ Asteroid* Asteroid::Explode(double xSpeed, double ySpeed) {
 }
 
 Asteroid *Asteroid::randomAsteroid(int screenWidth, int screenHeight) {
+    //this function creates a random asteroid
     Asteroid *newAsteroid;
     // create a vector of vector that stores the coordinates of 9 even zones on the screen, exclude the middle of the screen
     vector<vector<int>> zones = {{screenWidth / 3, 0, 0, screenHeight / 3},

@@ -1,6 +1,13 @@
 //
 // Created by Sharper8 on 18/09/2023.
 //
+
+////////////////////////////////////////
+// Description of the class objective //
+////////////////////////////////////////
+// The FlyingObject class is the parent class of all the objects that can move in the game.
+// It contains the position, the speed, the size and the angle of the object.
+
 #include <string>
 using namespace std;
 

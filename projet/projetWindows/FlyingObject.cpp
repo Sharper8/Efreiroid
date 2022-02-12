@@ -2,6 +2,12 @@
 // Created by Sharper8 on 18/09/2023.
 //
 
+                        ////////////////////////////////////////
+                        // Description of the class objective //
+                        ////////////////////////////////////////
+// The FlyingObject class is the parent class of all the objects that can move in the game.
+// It contains the position, the speed, the size and the angle of the object.
+
 #include "FlyingObject.h"
 #include <cmath>
 
@@ -52,9 +58,10 @@ void FlyingObject::SetY(double d) {
 }
 
 void FlyingObject::Move(double screenWidth, double screenHeight) {
-    // -------
+    // move the object of it's xSpeed and ySpeed value
     y += ySpeed;
     x += xSpeed;
+    //if the object is out of the screen, it appears on the other side
     if (x > screenWidth) {
         x = 0;
     }
@@ -79,8 +86,7 @@ double FlyingObject::GetAngle() const {
 }
 
 bool FlyingObject::Collide(FlyingObject *o1, FlyingObject *o2) {
-    // delete both objects if they collide
-    // -------
+    // return true if the distance between the center of the two objects is smaller than the sum of their radius
     double distance = sqrt(pow(o1->GetX() - o2->GetX(), 2) + pow(o1->GetY() - o2->GetY(), 2));
     return distance < o1->GetSize()/2 + o2->GetSize()/2;
 }

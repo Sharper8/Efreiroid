@@ -2,6 +2,12 @@
 // Created by Sharper8 on 06/10/2023.
 //
 
+                    ////////////////////////////////////////
+                    // Description of the class objective //
+                    ////////////////////////////////////////
+// The Model class is used to represent the game state. It contains the spaceship, the asteroids and the missiles data
+// to show on the screen.
+
 #include "Model.h"
 #include "View.h"
 #include "framework.hpp"
@@ -43,20 +49,26 @@ void Model::shoot() {
     missileList.push_back(new Missile(xPos, yPos, missileSize, spaceship->GetXSpeed() , spaceship->GetYSpeed(), spaceship->GetAngle()));
 }
 
+//////////////////////////////////////////////
+// The update function refreshes the game state, in particular the data of each object linked to what willl be shown on
+// the screen after the use of the View class.
+//It returns 1 if the player wins, -1 if the player loses, and 0 if the game continues.
+// --------
 int Model::update() {
     //if there is no asteroid left, the player wins
     if (asteroidList.empty()) {
         return 1;
     }
     framework->Update();
-    //check for collisions in both lists
+    //update every element of the game one by one
     for (int i = 0 ; i<asteroidList.size();++i){
         for (int j = 0; j < missileList.size(); ++j) {
+            //check if the missile is out of the screen and erase it if so
             if (missileList[j]->getOutOfScreen()) {
                 delete missileList[j];
                 missileList.erase(missileList.begin() + j);
             }
-            //collision between the missile and the asteroid
+            //check collision between the missile and the asteroid
             if (FlyingObject::Collide(asteroidList[i], missileList[j])) {
                 //if any explosion left in asteroid
                 if (asteroidList[i]->getNbExplosionsLeft() <= 0) {
@@ -64,7 +76,7 @@ int Model::update() {
                     asteroidList.erase(asteroidList.begin() + i);
                 }
                 else {
-                    //create a new asteroid
+                    //create a new asteroid based on the missile speed
                     Asteroid *newAsteroid = asteroidList[i]->Explode(missileList[j]->GetXSpeed(),
                                                                      missileList[j]->GetYSpeed());
                     //add it to the list
@@ -74,7 +86,7 @@ int Model::update() {
                 missileList.erase(missileList.begin() + j);
             }
         }
-        //collision between the spaceship and the asteroid
+        //check for collision between the spaceship and the asteroid
         if (FlyingObject::Collide(asteroidList[i], spaceship)) {
             if (!spaceship->GetInvincible()) {
                 if (spaceship->GetShield() <= 0.1) {
@@ -87,6 +99,7 @@ int Model::update() {
             }
         }
     }
+    //update the spaceShip invincibility status
     if (spaceship->GetInvincible()) {
         spaceship->UpdateInvincibilityStatus();
     }
@@ -100,9 +113,10 @@ int Model::update() {
     }
     return 0;
 }
+//todo changer la fonction au dessus
 
 vector<FlyingObject *> Model::getAllFlyingObjects() {
-//    return the list of all the flying objects
+//    return the list of all the flying objects present on the canvas
     std::vector<FlyingObject *> allFlyingObjects;
     std::copy(asteroidList.begin(), asteroidList.end(), std::back_inserter(allFlyingObjects));
     std::copy(missileList.begin(), missileList.end(), std::back_inserter(allFlyingObjects));

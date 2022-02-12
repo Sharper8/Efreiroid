@@ -2,6 +2,12 @@
 // Created by Sharper8 on 07/09/2023.
 //
 
+////////////////////////////////////////
+// Description of the class objective //
+////////////////////////////////////////
+// The Model class is used to represent the game state. It contains the spaceship, the asteroids and the missiles data
+// to show on the screen.
+
 #include <cmath>
 #include "Spaceship.h"
 using namespace std;
