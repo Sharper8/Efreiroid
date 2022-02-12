@@ -7,8 +7,8 @@
 
 Missile::Missile(double x, double y,double size, double xSpeed, double ySpeed,double angle): FlyingObject(x, y, size, xSpeed, ySpeed,angle) {
     outOfScreen = false;
-    this->xSpeed = xSpeed + cos(deg2rad(angle)) * 10;
-    this->ySpeed = ySpeed + sin(deg2rad(angle)) * 10;
+    this->xSpeed = xSpeed + cos(deg2rad(angle)) * 15;
+    this->ySpeed = ySpeed + sin(deg2rad(angle)) * 15;
 }
 
 void Missile::Move(double screenWidth, double screenHeight) {
