@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int WinMain(int argc, char* argv[]) {
+int main(int argc, char* argv[]) {
     //MVC implementation
     Controller controller(60, 40, 10);
     controller.LaunchGame();

@@ -1,3 +1,60 @@
 .vscode
 build/
 *.exe
+/projet/projetWindows/cmake-build-debug/
+/projet/projetWindows/cmake-build-debug-event-trace/
+/projet/projetWindows/cmake-build-debug/
+
+# Build artifacts and object files
+*.obj
+*.o
+*.lib
+*.a
+*.dll
+*.so
+*.dylib
+
+# Visual Studio files
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.ninja
+.ninja_deps
+.ninja_log
+build.ninja
+
+# Test and temporary files
+test_fix.*
+*_test.*
+*_temp.*
+
+# Downloaded SDL2 files
+SDL2-VC/
+SDL2-VC.zip
+
+# IDE specific files
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+thumbs.db
